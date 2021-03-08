@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- 引入配置文件 -->
+    <!--<property resource="file:///D:\Development\WorkPlace\atm-api\src\main\mybatis_generator\init.property"/> -->
+    <!-- 指定数据连接驱动jar地址 -->
+    <!-- <classPathEntry location="D:/Development/WorkPlace/ATM_API/mybatis_generator/postgresql-42.2.5.jar" /> -->
+    <context id="postgresql" targetRuntime="MyBatis3">
+        <!-- generate entity时，生成serialVersionUID -->
+        <plugin type="org.mybatis.generator.plugins.SerializablePlugin" />
+        <!-- generate entity时，生成hashcode和equals方法 -->
+        <plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+        <!-- genenat entity时,生成toString -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
+        <plugin type="org.mybatis.generator.plugins.RowBoundsPlugin" />
+        <plugin type="org.mybatis.generator.plugins.CaseInsensitiveLikePlugin" />
+        <!-- Example Criteria 增强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ExampleEnhancedPlugin" />
+        <!-- 查询单条数据插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectOneByExamplePlugin" />
+        <!-- 批量插入插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.BatchInsertPlugin">
+            <!-- 开启后可以实现官方插件根据属性是否为空决定是否插入该字段功能 ！需开启allowMultiQueries=true多条sql提交操作，所以不建议使用！插件默认不开启 -->
+            <property name="allowMultiQueries" value="false" />
+        </plugin>
+        <!-- 数据Model属性对应Column获取插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.ModelColumnPlugin" />
+        <!-- Selective选择插入更新增强插件 -->
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectiveEnhancedPlugin" />
+        <plugin type="com.itfsw.mybatis.generator.plugins.SelectSelectivePlugin" />
+        <plugin type="com.itfsw.mybatis.generator.plugins.LogicalDeletePlugin">
+            <!-- 这里配置的是全局逻辑删除列和逻辑删除值，当然在table中配置的值会覆盖该全局配置 -->
+            <!-- 逻辑删除列类型只能为数字、字符串或者布尔类型 -->
+            <property name="logicalDeleteColumn" value="is_deleted" />
+            <!-- 逻辑删除-已删除值 -->
+            <property name="logicalDeleteValue" value="true" />
+            <!-- 逻辑删除-未删除值 -->
+            <property name="logicalUnDeleteValue" value="false" />
+            <!-- 逻辑删除常量名称，不配置默认为 IS_DELETED -->
+            <property name="logicalDeleteConstName" value="IS_DELETED" />
+            <!-- 逻辑删除常量（未删除）名称，不配置默认为 NOT_DELETED -->
+            <property name="logicalUnDeleteConstName" value="NOT_DELETED" />
+        </plugin>
+        <commentGenerator>
+            <property name="suppressAllComments" value="true" /><!-- 是否取消注释 -->
+        </commentGenerator>
+        <!-- jdbc连接 -->
+        <jdbcConnection driverClass="org.postgresql.Driver" connectionURL="jdbc:postgresql://localhost:5432/ATM" userId="testadmin" password="P@rty888" />
+        <!-- 类型转换 -->
+        <javaTypeResolver>
+            <!-- 是否使用bigDecimal， false可自动转化以下类型（Long, Integer, Short, etc.） -->
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!-- 生成实体类地址 -->
+        <javaModelGenerator targetPackage="com.meowlomo.atm.core.model" targetProject="src/main/java">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.meowlomo.atm.model， true:com.meowlomo.atm.core.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </javaModelGenerator>
+        <!-- 生成mapxml文件 -->
+        <sqlMapGenerator targetPackage="com.meowlomo.atm.core.mapper" targetProject="src/main/resources">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.meowlomo.atm.model， true:com.meowlomo.atm.core.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </sqlMapGenerator>
+        <!-- 生成mapxml对应client，也就是接口dao -->
+        <javaClientGenerator targetPackage="com.meowlomo.atm.core.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <!-- 是否在当前路径下新加一层schema,eg：fase路径com.meowlomo.atm.model， true:com.meowlomo.atm.core.model.[schemaName] -->
+            <property name="enableSubPackages" value="false" />
+        </javaClientGenerator>
+        <!-- 配置表信息 -->
+        <table tableName="%" schema="public">
+            <!-- chaange column style to getStartDate -->
+            <property name="useActualColumnNames" value="false" />
+            <!-- removed schema in generated sql -->
+            <property name="ignoreQualifiersAtRuntime" value="true" />
+            <generatedKey column="id" sqlStatement="JDBC" identity="true" />
+            <columnOverride column="id" jdbcType="BIGINT" />
+            <columnOverride column="group_id" property="group" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.GroupTypeHandler" />
+            <columnOverride column="status_id" property="status" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.StatusTypeHandler" />
+            <columnOverride column="latest_run_status_id" property="latestRunStatus" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.StatusTypeHandler" />
+            <columnOverride column="latest_dev_run_status_id" property="latestDevRunStatus" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.StatusTypeHandler" />
+            <columnOverride column="instruction_action_id" property="instructionAction" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.InstructionActionTypeHandler" />
+            <columnOverride column="element_type_id" property="elementType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.ElementTypeTypeHandler" />
+            <columnOverride column="element_locator_type_id" property="elementLocatorType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.ElementLocatorTypeTypeHandler" />
+            <columnOverride column="project_type_id" property="projectType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.ProjectTypeTypeHandler" />
+            <columnOverride column="file_type_id" property="fileType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.FileTypeTypeHandler" />
+            <columnOverride column="driver_type_id" property="driverType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.DriverTypeTypeHandler" />
+            <columnOverride column="system_requirement_type_id" property="systemRequirementType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.SystemRequirementTypeTypeHandler" />
+            <columnOverride column="run_set_type_id" property="runSetType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.RunSetTypeTypeHandler" />
+            <columnOverride column="test_case_type_id" property="testCaseType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.TestCaseTypeTypeHandler" />
+            <columnOverride column="run_type_id" property="runType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.RunTypeTypeHandler" />
+            <columnOverride column="instruction_type_id" property="instructionType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.InstructionTypeTypeHandler" />
+            <columnOverride column="instruction_option_id" property="instructionOption" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.InstructionOptionTypeHandler" />
+            <columnOverride column="test_case_option_id" property="testCaseOption" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.TestCaseOptionTypeHandler" />
+            <columnOverride column="color_id" property="color" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.ColorTypeHandler" />
+            <columnOverride column="log_level_id" property="logLevel" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.LogLevelTypeHandler" />
+            <columnOverride column="step_log_type_id" property="stepLogType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.StepLogTypeTypeHandler" />
+            <columnOverride column="source_type_id" property="sourceType" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.SourceTypeTypeHandler" />
+            <columnOverride column="content_type_id" property="type" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.ContentTypeTypeHandler" />
+            <columnOverride column="run_group_id" property="group" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.GroupTypeHandler" />
+            <columnOverride column="run_status_id" property="runStatus" jdbcType="OTHER" javaType="java.lang.String" typeHandler="com.meowlomo.atm.typehandler.StatusTypeHandler" />
+
+            <columnOverride column="instruction_types" javaType="java.util.List" typeHandler="com.meowlomo.atm.typehandler.InstructionTypesTypeHandler" />
+            <columnOverride column="driver_types" javaType="java.util.List" typeHandler="com.meowlomo.atm.typehandler.DriverTypesTypeHandler" />
+            <columnOverride column="system_requirement_types" javaType="java.util.List" typeHandler="com.meowlomo.atm.typehandler.SystemRequirementTypesTypeHandler" />
+            
+            <columnOverride column="updated_at" isGeneratedAlways="true" />
+            <columnOverride column="created_at" isGeneratedAlways="true" />
+            <columnOverride column="end_at" isGeneratedAlways="true" />
+            <columnOverride column="start_at" isGeneratedAlways="true" />
+            <columnOverride column="overridable_fields" isGeneratedAlways="true" />
+            <columnOverride column="target" isGeneratedAlways="true"  />
+            <columnOverride column="ref_test_case_overwrite_name" isGeneratedAlways="true"  />
+            <columnOverride column="content_sha2" isGeneratedAlways="true"  />
+            <columnOverride column="run_start_at" isGeneratedAlways="true" />
+            <columnOverride column="run_end_at" isGeneratedAlways="true" />
+            <columnOverride column="duration" isGeneratedAlways="true" />
+            
+            <columnOverride column="total_run_number" isGeneratedAlways="true" />
+            <columnOverride column="passed_run_number" isGeneratedAlways="true" />
+            <columnOverride column="failed_run_number" isGeneratedAlways="true" />
+            
+            <columnOverride column="total_test_case_number" isGeneratedAlways="true" />
+            <columnOverride column="passed_test_case_number" isGeneratedAlways="true" />
+            <columnOverride column="failed_test_case_number" isGeneratedAlways="true" />
+            <!-- boolean columns -->
+            <!-- json type columns -->
+            <columnOverride column="is_active" property="active" />
+            <columnOverride column="is_finished" property="finished" />
+            <columnOverride column="is_predefined_value_required" property="predefinedValueRequired" />
+            <columnOverride column="is_prefered" property="prefered" />
+            <columnOverride column="is_predefined" property="predefined" />
+            <columnOverride column="is_value_required" property="valueRequired" />
+            <columnOverride column="is_reserved" property="reserved" />
+            <columnOverride column="is_flagged" property="flagged" />
+            <columnOverride column="is_deleted" property="deleted" />
+            
+
+            
+            <ignoreColumn column="tenant_id" />
+            
+            <columnOverride column="content_json" property="contentJson" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="parameter" property="parameter" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="input_parameter" property="inputParameter" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="output_parameter" property="outputParameter" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="data" property="data" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="instruction" property="instruction" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="test_case" property="testCase" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="run" property="run" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="driver_pack" property="driverPack" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="system_requirement_pack" property="systemRequirementPack" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="execution_result" property="executionResult" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="query_parameters" property="queryParameters" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="request_headers" property="requestHeaders" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="json_schema" property="jsonSchema" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="properties" property="properties" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="drivers" property="drivers" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="system_requirements" property="systemRequirements" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="property" property="property" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            <columnOverride column="test_case_overwrite" property="testCaseOverwrite" javaType="com.fasterxml.jackson.databind.JsonNode" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+            
+            <columnOverride column="uuid" javaType="java.util.UUID" isGeneratedAlways="true" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="file_uuid" javaType="java.util.UUID" isGeneratedAlways="true" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="job_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="task_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="test_case_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="run_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="run_set_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="run_set_result_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="user_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="activity_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="account_uuid" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            
+            <columnOverride column="driver_pack_md5" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="test_case_overwrite_md5" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            <columnOverride column="test_case_md5" javaType="java.util.UUID" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+            
+            <columnOverride column="xml_schema" property="xmlSchema" javaType="org.w3c.dom.Document" typeHandler="com.meowlomo.atm.typehandler.XMLTypeHandler" />
+
+            <columnOverride column="driver_aliases" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.StringSetTypeHandler" />
+            <columnOverride column="instruction_options" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.StringSetTypeHandler" />
+            <columnOverride column="aliases" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.StringSetTypeHandler" />
+            <columnOverride column="alias_names" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.StringSetTypeHandler" />
+            
+            <columnOverride column="executed_test_case_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="active_test_case_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="test_case_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="passed_test_case_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="executed_test_case_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="instruction_type_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="instruction_action_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="element_type_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="run_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="passed_run_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+            <columnOverride column="failed_run_ids" isGeneratedAlways="true" javaType="java.util.Set" typeHandler="com.meowlomo.atm.typehandler.LongSetTypeHandler" />
+
+        </table>
+    </context>
+</generatorConfiguration>

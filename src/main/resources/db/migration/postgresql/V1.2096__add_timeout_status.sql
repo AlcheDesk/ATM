@@ -1,0 +1,1 @@
+INSERT INTO status (id, name, is_active, is_predefined) VALUES (8, 'TIMEOUT', true, true);

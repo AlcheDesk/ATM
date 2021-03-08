@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.util.InstructionUtilMapper">
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.Instruction">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="comment" jdbcType="VARCHAR" property="comment" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="input" jdbcType="VARCHAR" property="input" />
+        <result column="element_id" jdbcType="BIGINT" property="elementId" />
+        <result column="is_deleted" jdbcType="BIT" property="deleted" />
+        <result column="project_id" jdbcType="BIGINT" property="projectId" />
+        <result column="application_id" jdbcType="BIGINT" property="applicationId" />
+        <result column="section_id" jdbcType="BIGINT" property="sectionId" />
+        <result column="order_index" jdbcType="BIGINT" property="orderIndex" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="data" jdbcType="OTHER" property="data" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="color_id" jdbcType="OTHER" property="color" typeHandler="com.meowlomo.atm.typehandler.ColorTypeHandler" />
+        <result column="instruction_type_id" jdbcType="OTHER" property="type" typeHandler="com.meowlomo.atm.typehandler.InstructionTypeTypeHandler" />
+        <result column="step_description" jdbcType="VARCHAR" property="stepDescription" />
+        <result column="expected_description" jdbcType="VARCHAR" property="expectedDescription" />
+        <result column="test_case_id" jdbcType="BIGINT" property="testCaseId" />
+        <result column="ref_test_case_id" jdbcType="BIGINT" property="refTestCaseId" />
+        <result column="instruction_action_id" jdbcType="OTHER" property="action" typeHandler="com.meowlomo.atm.typehandler.InstructionActionTypeHandler" />
+        <result column="is_driver" jdbcType="BIT" property="isDriver" />
+        <result column="parameter" jdbcType="OTHER" property="parameter" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="copy_from_id" jdbcType="BIGINT" property="copyFromId" />
+        <result column="expected_value" jdbcType="VARCHAR" property="expectedValue" />
+        <result column="resource_md5" jdbcType="CHAR" property="resourceMd5" />
+        <result column="element_type_id" jdbcType="OTHER" property="elementType" typeHandler="com.meowlomo.atm.typehandler.ElementTypeTypeHandler" />
+        <result column="driver_type_id" jdbcType="OTHER" property="driverType" typeHandler="com.meowlomo.atm.typehandler.DriverTypeTypeHandler" />
+        <result column="ref_test_case_overwrite_id" jdbcType="BIGINT" property="refTestCaseOverwriteId" />
+        <result column="test_case_share_folder_id" jdbcType="BIGINT" property="testCaseShareFolderId" />
+        <result column="driver_alias" jdbcType="VARCHAR" property="driverAlias" />
+        <result column="target" jdbcType="VARCHAR" property="target" />
+        <result column="ref_test_case_overwrite_name" jdbcType="VARCHAR" property="refTestCaseOverwriteName" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.dataCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.colorCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.actionCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.parameterCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.elementTypeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driverTypeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.dataCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.colorCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.ColorTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.actionCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionActionTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.parameterCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.elementTypeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.ElementTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driverTypeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.DriverTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, comment, updated_at, created_at, input, element_id, is_deleted, project_id, application_id,
+        section_id, order_index, log, data, color_id, instruction_type_id, step_description,
+        expected_description, test_case_id, ref_test_case_id, instruction_action_id, is_driver,
+        parameter, copy_from_id, expected_value, resource_md5, element_type_id, driver_type_id,
+        ref_test_case_overwrite_id, test_case_share_folder_id, driver_alias, target, ref_test_case_overwrite_name
+    </sql>
+    <update id="updateOrderIndexByTestCaseId" parameterType="java.lang.Long">
+        UPDATE instruction SET order_index = x.new_order_index FROM ( SELECT
+        id as sub_id, order_index as
+        old_order_index, ROW_NUMBER() OVER (ORDER BY order_index asc , updated_at desc, id asc
+        ) AS new_order_index FROM
+        instruction where
+        is_deleted = false and test_case_id =
+        #{testCaseId,jdbcType=BIGINT} ) x WHERE
+        x.old_order_index <![CDATA[ <> ]]>
+        x.new_order_index AND x.new_order_index IS NOT NULL and id = x.sub_id
+    </update>
+    <select id="selectTestCaseReferneceInfo" resultType="Hashmap">
+        select test_case_id, ref_test_case_id from instruction where ref_test_case_id is not null and is_deleted = false GROUP BY test_case_id,
+        ref_test_case_id
+    </select>
+    <select id="selectInstructionRefInfoByTestCaseId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select id, instruction_type_id, test_case_id, ref_test_case_id
+        from instruction
+        where is_deleted is false and test_case_id =
+        #{testCaseId,jdbcType=BIGINT}
+    </select>
+</mapper>

@@ -1,0 +1,2 @@
+ALTER TABLE "run_set_test_case_link" DROP CONSTRAINT IF EXISTS "run_set_test_case_link_ck_test_case_name";
+ALTER TABLE "test_case_folder_test_case_link" DROP CONSTRAINT IF EXISTS "test_case_folder_test_case_link_ck_test_case_name";

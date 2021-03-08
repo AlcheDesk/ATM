@@ -1,0 +1,2 @@
+DROP TRIGGER "application_udpate_trigger_instruction_target_update" ON "application";
+CREATE TRIGGER run_set_job_link_insert_create_at_update_at BEFORE UPDATE ON "run_set_job_link" FOR EACH ROW EXECUTE PROCEDURE "insert_updated_at_created_at_column"();

@@ -1,0 +1,10 @@
+ALTER TABLE "project_object_type_link" RENAME COLUMN "object_type_id" TO type_id;
+ALTER TABLE "project_object_type_link" RENAME TO project_type_link;
+ALTER TABLE "test_case_ems_task_link" DROP COLUMN "task_id";
+ALTER TABLE "test_case_ems_task_link" ALTER COLUMN task_uuid SET NOT NULL;
+ALTER TABLE "test_case_ems_task_link" RENAME TO test_case_task_link;
+ALTER TABLE "run_set_ems_job_link" DROP COLUMN "job_id";
+ALTER TABLE "run_set_ems_job_link" ALTER COLUMN job_uuid SET NOT NULL;
+ALTER TABLE "run_set_ems_job_link" RENAME TO run_set_job_link;
+ALTER TABLE "atm_object_type" RENAME TO object_type;
+ALTER SEQUENCE "atm_object_type_id_seq" RENAME TO object_type_id_seq;

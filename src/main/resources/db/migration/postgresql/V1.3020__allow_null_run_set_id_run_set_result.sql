@@ -1,0 +1,1 @@
+ALTER TABLE "run_set_result" ALTER COLUMN "run_set_id" DROP NOT NULL;

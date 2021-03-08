@@ -1,0 +1,1 @@
+ALTER TABLE "section" DROP CONSTRAINT if exists "section_ix_name_application_id_active" ;

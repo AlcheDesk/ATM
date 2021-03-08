@@ -1,0 +1,2 @@
+ALTER TABLE "account" ALTER COLUMN "password" SET NOT NULL;
+ALTER TABLE "account" ALTER COLUMN "type" SET NOT NULL;

@@ -1,0 +1,1 @@
+INSERT INTO multi_tenancy_ignorance (id, table_name) VALUES (50, 'test_case_execution_info');

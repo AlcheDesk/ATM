@@ -1,0 +1,1 @@
+UPDATE driver_vendor SET is_active = true WHERE name = 'Redis';

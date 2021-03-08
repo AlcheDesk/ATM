@@ -1,0 +1,1256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.RunMapper">
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.Run">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="status_id" jdbcType="OTHER" property="status" typeHandler="com.meowlomo.atm.typehandler.StatusTypeHandler" />
+        <result column="is_finished" jdbcType="BIT" property="finished" />
+        <result column="test_case" jdbcType="OTHER" property="testCase" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="parameter" jdbcType="OTHER" property="parameter" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="test_case_id" jdbcType="BIGINT" property="testCaseId" />
+        <result column="run_type_id" jdbcType="OTHER" property="type" typeHandler="com.meowlomo.atm.typehandler.RunTypeTypeHandler" />
+        <result column="start_at" jdbcType="TIMESTAMP" property="startAt" />
+        <result column="end_at" jdbcType="TIMESTAMP" property="endAt" />
+        <result column="group_id" jdbcType="OTHER" property="group" typeHandler="com.meowlomo.atm.typehandler.GroupTypeHandler" />
+        <result column="priority" jdbcType="INTEGER" property="priority" />
+        <result column="timeout" jdbcType="INTEGER" property="timeout" />
+        <result column="run_set_result_id" jdbcType="BIGINT" property="runSetResultId" />
+        <result column="driver_pack" jdbcType="OTHER" property="driverPack" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="driver_pack_id" jdbcType="BIGINT" property="driverPackId" />
+        <result column="is_recorded" jdbcType="BIGINT" property="isRecorded" />
+        <result column="test_case_overwrite" jdbcType="OTHER" property="testCaseOverwrite" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="test_case_overwrite_id" jdbcType="BIGINT" property="testCaseOverwriteId" />
+        <result column="trigger_source" jdbcType="VARCHAR" property="triggerSource" />
+        <result column="drivers" jdbcType="OTHER" property="drivers" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="uuid" jdbcType="OTHER" property="uuid" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+        <result column="test_case_uuid" jdbcType="OTHER" property="testCaseUuid" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+        <result column="singleton" jdbcType="BIT" property="singleton" />
+        <result column="executable_instruction_number" jdbcType="BIGINT" property="executableInstructionNumber" />
+        <result column="system_requirement_pack_id" jdbcType="BIGINT" property="systemRequirementPackId" />
+        <result column="system_requirements" jdbcType="OTHER" property="systemRequirements" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="system_requirement_pack" jdbcType="OTHER" property="systemRequirementPack" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="run_set_test_case_link_id" jdbcType="BIGINT" property="runSetTestCaseLinkId" />
+        <result column="result_overwritten" jdbcType="INTEGER" property="resultOverwritten" />
+        <result column="project_id" jdbcType="BIGINT" property="projectId" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.statusCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.parameterCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.groupCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driverPackCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseOverwriteCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driversCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.uuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.systemRequirementsCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.systemRequirementPackCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.statusCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.parameterCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.groupCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driverPackCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseOverwriteCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.driversCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.uuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.testCaseUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.systemRequirementsCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.systemRequirementPackCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, name, created_at, updated_at, log, status_id, is_finished, test_case, parameter,
+        test_case_id, run_type_id, start_at, end_at, group_id, priority, timeout, run_set_result_id,
+        driver_pack, driver_pack_id, is_recorded, test_case_overwrite, test_case_overwrite_id,
+        trigger_source, drivers, uuid, test_case_uuid, singleton, executable_instruction_number,
+        system_requirement_pack_id, system_requirements, system_requirement_pack, run_set_test_case_link_id,
+        result_overwritten, project_id
+    </sql>
+    <select id="selectByExample" parameterType="com.meowlomo.atm.core.model.RunExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from run
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <if test="example != null and example.distinct">
+            distinct
+        </if>
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run
+        <if test="example != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example != null and example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from run
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from run
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.meowlomo.atm.core.model.RunExample">
+        delete from run
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.meowlomo.atm.core.model.Run" useGeneratedKeys="true">
+        insert into run (name, log, status_id,
+        is_finished, test_case,
+        parameter,
+        test_case_id, run_type_id,
+        group_id,
+        priority, timeout, run_set_result_id,
+        driver_pack,
+        driver_pack_id, is_recorded, test_case_overwrite,
+        test_case_overwrite_id, trigger_source, drivers,
+        test_case_uuid,
+        singleton, executable_instruction_number, system_requirement_pack_id,
+        system_requirements,
+        system_requirement_pack,
+        run_set_test_case_link_id, result_overwritten,
+        project_id)
+        values (#{name,jdbcType=VARCHAR}, #{log,jdbcType=VARCHAR}, #{status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+        #{finished,jdbcType=BIT}, #{testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{testCaseId,jdbcType=BIGINT}, #{type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+        #{group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+        #{priority,jdbcType=INTEGER}, #{timeout,jdbcType=INTEGER}, #{runSetResultId,jdbcType=BIGINT},
+        #{driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{driverPackId,jdbcType=BIGINT}, #{isRecorded,jdbcType=BIGINT}, #{testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{testCaseOverwriteId,jdbcType=BIGINT}, #{triggerSource,jdbcType=VARCHAR}, #{drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        #{singleton,jdbcType=BIT}, #{executableInstructionNumber,jdbcType=BIGINT}, #{systemRequirementPackId,jdbcType=BIGINT},
+        #{systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        #{runSetTestCaseLinkId,jdbcType=BIGINT}, #{resultOverwritten,jdbcType=INTEGER},
+        #{projectId,jdbcType=BIGINT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="record.id" parameterType="map" useGeneratedKeys="true">
+        insert into run
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    ${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.name != null">
+                        name,
+                    </if>
+                    <if test="record.log != null">
+                        log,
+                    </if>
+                    <if test="record.status != null">
+                        status_id,
+                    </if>
+                    <if test="record.finished != null">
+                        is_finished,
+                    </if>
+                    <if test="record.testCase != null">
+                        test_case,
+                    </if>
+                    <if test="record.parameter != null">
+                        parameter,
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id,
+                    </if>
+                    <if test="record.type != null">
+                        run_type_id,
+                    </if>
+                    <if test="record.group != null">
+                        group_id,
+                    </if>
+                    <if test="record.priority != null">
+                        priority,
+                    </if>
+                    <if test="record.timeout != null">
+                        timeout,
+                    </if>
+                    <if test="record.runSetResultId != null">
+                        run_set_result_id,
+                    </if>
+                    <if test="record.driverPack != null">
+                        driver_pack,
+                    </if>
+                    <if test="record.driverPackId != null">
+                        driver_pack_id,
+                    </if>
+                    <if test="record.isRecorded != null">
+                        is_recorded,
+                    </if>
+                    <if test="record.testCaseOverwrite != null">
+                        test_case_overwrite,
+                    </if>
+                    <if test="record.testCaseOverwriteId != null">
+                        test_case_overwrite_id,
+                    </if>
+                    <if test="record.triggerSource != null">
+                        trigger_source,
+                    </if>
+                    <if test="record.drivers != null">
+                        drivers,
+                    </if>
+                    <if test="record.testCaseUuid != null">
+                        test_case_uuid,
+                    </if>
+                    <if test="record.singleton != null">
+                        singleton,
+                    </if>
+                    <if test="record.executableInstructionNumber != null">
+                        executable_instruction_number,
+                    </if>
+                    <if test="record.systemRequirementPackId != null">
+                        system_requirement_pack_id,
+                    </if>
+                    <if test="record.systemRequirements != null">
+                        system_requirements,
+                    </if>
+                    <if test="record.systemRequirementPack != null">
+                        system_requirement_pack,
+                    </if>
+                    <if test="record.runSetTestCaseLinkId != null">
+                        run_set_test_case_link_id,
+                    </if>
+                    <if test="record.resultOverwritten != null">
+                        result_overwritten,
+                    </if>
+                    <if test="record.projectId != null">
+                        project_id,
+                    </if>
+                </trim>
+                <trim prefix="(" suffix=")" suffixOverrides="," />
+            </otherwise>
+        </choose>
+        values
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.name != null">
+                        #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.log != null">
+                        #{record.log,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.status != null">
+                        #{record.status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+                    </if>
+                    <if test="record.finished != null">
+                        #{record.finished,jdbcType=BIT},
+                    </if>
+                    <if test="record.testCase != null">
+                        #{record.testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.parameter != null">
+                        #{record.parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.type != null">
+                        #{record.type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+                    </if>
+                    <if test="record.group != null">
+                        #{record.group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+                    </if>
+                    <if test="record.priority != null">
+                        #{record.priority,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.timeout != null">
+                        #{record.timeout,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.runSetResultId != null">
+                        #{record.runSetResultId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.driverPack != null">
+                        #{record.driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.driverPackId != null">
+                        #{record.driverPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.isRecorded != null">
+                        #{record.isRecorded,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.testCaseOverwrite != null">
+                        #{record.testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseOverwriteId != null">
+                        #{record.testCaseOverwriteId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.triggerSource != null">
+                        #{record.triggerSource,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.drivers != null">
+                        #{record.drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseUuid != null">
+                        #{record.testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.singleton != null">
+                        #{record.singleton,jdbcType=BIT},
+                    </if>
+                    <if test="record.executableInstructionNumber != null">
+                        #{record.executableInstructionNumber,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirementPackId != null">
+                        #{record.systemRequirementPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirements != null">
+                        #{record.systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.systemRequirementPack != null">
+                        #{record.systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.runSetTestCaseLinkId != null">
+                        #{record.runSetTestCaseLinkId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.resultOverwritten != null">
+                        #{record.resultOverwritten,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.projectId != null">
+                        #{record.projectId,jdbcType=BIGINT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+    </insert>
+    <select id="countByExample" parameterType="com.meowlomo.atm.core.model.RunExample" resultType="java.lang.Long">
+        select count(*) from run
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update run
+        SET
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    <choose>
+                        <when test="'status_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                        </when>
+                        <when test="'test_case'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'parameter'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'run_type_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                        </when>
+                        <when test="'group_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                        </when>
+                        <when test="'driver_pack'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'test_case_overwrite'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'drivers'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'test_case_uuid'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                        </when>
+                        <when test="'system_requirements'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'system_requirement_pack'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <otherwise>
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.id != null">
+                        id = #{record.id,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.name != null">
+                        name = #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.log != null">
+                        log = #{record.log,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.status != null">
+                        status_id = #{record.status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+                    </if>
+                    <if test="record.finished != null">
+                        is_finished = #{record.finished,jdbcType=BIT},
+                    </if>
+                    <if test="record.testCase != null">
+                        test_case = #{record.testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.parameter != null">
+                        parameter = #{record.parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.type != null">
+                        run_type_id = #{record.type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+                    </if>
+                    <if test="record.group != null">
+                        group_id = #{record.group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+                    </if>
+                    <if test="record.priority != null">
+                        priority = #{record.priority,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.timeout != null">
+                        timeout = #{record.timeout,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.runSetResultId != null">
+                        run_set_result_id = #{record.runSetResultId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.driverPack != null">
+                        driver_pack = #{record.driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.driverPackId != null">
+                        driver_pack_id = #{record.driverPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.isRecorded != null">
+                        is_recorded = #{record.isRecorded,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.testCaseOverwrite != null">
+                        test_case_overwrite = #{record.testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseOverwriteId != null">
+                        test_case_overwrite_id = #{record.testCaseOverwriteId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.triggerSource != null">
+                        trigger_source = #{record.triggerSource,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.drivers != null">
+                        drivers = #{record.drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseUuid != null">
+                        test_case_uuid = #{record.testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.singleton != null">
+                        singleton = #{record.singleton,jdbcType=BIT},
+                    </if>
+                    <if test="record.executableInstructionNumber != null">
+                        executable_instruction_number = #{record.executableInstructionNumber,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirementPackId != null">
+                        system_requirement_pack_id = #{record.systemRequirementPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirements != null">
+                        system_requirements = #{record.systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.systemRequirementPack != null">
+                        system_requirement_pack = #{record.systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.runSetTestCaseLinkId != null">
+                        run_set_test_case_link_id = #{record.runSetTestCaseLinkId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.resultOverwritten != null">
+                        result_overwritten = #{record.resultOverwritten,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.projectId != null">
+                        project_id = #{record.projectId,jdbcType=BIGINT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update run
+        set id = #{record.id,jdbcType=BIGINT},
+        name = #{record.name,jdbcType=VARCHAR},
+        log = #{record.log,jdbcType=VARCHAR},
+        status_id = #{record.status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+        is_finished = #{record.finished,jdbcType=BIT},
+        test_case = #{record.testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        parameter = #{record.parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+        run_type_id = #{record.type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+        group_id = #{record.group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+        priority = #{record.priority,jdbcType=INTEGER},
+        timeout = #{record.timeout,jdbcType=INTEGER},
+        run_set_result_id = #{record.runSetResultId,jdbcType=BIGINT},
+        driver_pack = #{record.driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        driver_pack_id = #{record.driverPackId,jdbcType=BIGINT},
+        is_recorded = #{record.isRecorded,jdbcType=BIGINT},
+        test_case_overwrite = #{record.testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_overwrite_id = #{record.testCaseOverwriteId,jdbcType=BIGINT},
+        trigger_source = #{record.triggerSource,jdbcType=VARCHAR},
+        drivers = #{record.drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_uuid = #{record.testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        singleton = #{record.singleton,jdbcType=BIT},
+        executable_instruction_number = #{record.executableInstructionNumber,jdbcType=BIGINT},
+        system_requirement_pack_id = #{record.systemRequirementPackId,jdbcType=BIGINT},
+        system_requirements = #{record.systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        system_requirement_pack = #{record.systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        run_set_test_case_link_id = #{record.runSetTestCaseLinkId,jdbcType=BIGINT},
+        result_overwritten = #{record.resultOverwritten,jdbcType=INTEGER},
+        project_id = #{record.projectId,jdbcType=BIGINT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="map">
+        update run
+        SET
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    <choose>
+                        <when test="'status_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler}
+                        </when>
+                        <when test="'test_case'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'parameter'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'run_type_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler}
+                        </when>
+                        <when test="'group_id'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler}
+                        </when>
+                        <when test="'driver_pack'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'test_case_overwrite'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'drivers'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'test_case_uuid'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                        </when>
+                        <when test="'system_requirements'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <when test="'system_requirement_pack'.toString() == column.value">
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                        </when>
+                        <otherwise>
+                            ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                        </otherwise>
+                    </choose>
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.name != null">
+                        name = #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.log != null">
+                        log = #{record.log,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.status != null">
+                        status_id = #{record.status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+                    </if>
+                    <if test="record.finished != null">
+                        is_finished = #{record.finished,jdbcType=BIT},
+                    </if>
+                    <if test="record.testCase != null">
+                        test_case = #{record.testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.parameter != null">
+                        parameter = #{record.parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.type != null">
+                        run_type_id = #{record.type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+                    </if>
+                    <if test="record.group != null">
+                        group_id = #{record.group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+                    </if>
+                    <if test="record.priority != null">
+                        priority = #{record.priority,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.timeout != null">
+                        timeout = #{record.timeout,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.runSetResultId != null">
+                        run_set_result_id = #{record.runSetResultId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.driverPack != null">
+                        driver_pack = #{record.driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.driverPackId != null">
+                        driver_pack_id = #{record.driverPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.isRecorded != null">
+                        is_recorded = #{record.isRecorded,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.testCaseOverwrite != null">
+                        test_case_overwrite = #{record.testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseOverwriteId != null">
+                        test_case_overwrite_id = #{record.testCaseOverwriteId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.triggerSource != null">
+                        trigger_source = #{record.triggerSource,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.drivers != null">
+                        drivers = #{record.drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.testCaseUuid != null">
+                        test_case_uuid = #{record.testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.singleton != null">
+                        singleton = #{record.singleton,jdbcType=BIT},
+                    </if>
+                    <if test="record.executableInstructionNumber != null">
+                        executable_instruction_number = #{record.executableInstructionNumber,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirementPackId != null">
+                        system_requirement_pack_id = #{record.systemRequirementPackId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.systemRequirements != null">
+                        system_requirements = #{record.systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.systemRequirementPack != null">
+                        system_requirement_pack = #{record.systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+                    </if>
+                    <if test="record.runSetTestCaseLinkId != null">
+                        run_set_test_case_link_id = #{record.runSetTestCaseLinkId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.resultOverwritten != null">
+                        result_overwritten = #{record.resultOverwritten,jdbcType=INTEGER},
+                    </if>
+                    <if test="record.projectId != null">
+                        project_id = #{record.projectId,jdbcType=BIGINT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        where id = #{record.id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.meowlomo.atm.core.model.Run">
+        update run
+        set name = #{name,jdbcType=VARCHAR},
+        log = #{log,jdbcType=VARCHAR},
+        status_id = #{status,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.StatusTypeHandler},
+        is_finished = #{finished,jdbcType=BIT},
+        test_case = #{testCase,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        parameter = #{parameter,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_id = #{testCaseId,jdbcType=BIGINT},
+        run_type_id = #{type,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.RunTypeTypeHandler},
+        group_id = #{group,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.GroupTypeHandler},
+        priority = #{priority,jdbcType=INTEGER},
+        timeout = #{timeout,jdbcType=INTEGER},
+        run_set_result_id = #{runSetResultId,jdbcType=BIGINT},
+        driver_pack = #{driverPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        driver_pack_id = #{driverPackId,jdbcType=BIGINT},
+        is_recorded = #{isRecorded,jdbcType=BIGINT},
+        test_case_overwrite = #{testCaseOverwrite,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_overwrite_id = #{testCaseOverwriteId,jdbcType=BIGINT},
+        trigger_source = #{triggerSource,jdbcType=VARCHAR},
+        drivers = #{drivers,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        test_case_uuid = #{testCaseUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        singleton = #{singleton,jdbcType=BIT},
+        executable_instruction_number = #{executableInstructionNumber,jdbcType=BIGINT},
+        system_requirement_pack_id = #{systemRequirementPackId,jdbcType=BIGINT},
+        system_requirements = #{systemRequirements,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        system_requirement_pack = #{systemRequirementPack,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler},
+        run_set_test_case_link_id = #{runSetTestCaseLinkId,jdbcType=BIGINT},
+        result_overwritten = #{resultOverwritten,jdbcType=INTEGER},
+        project_id = #{projectId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByExampleWithRowbounds" parameterType="com.meowlomo.atm.core.model.RunExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from run
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectOneByExample" parameterType="com.meowlomo.atm.core.model.RunExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from run
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+    <select id="selectOneByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run
+        <if test="example != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example != null and example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+        limit 1
+    </select>
+</mapper>

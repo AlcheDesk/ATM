@@ -1,0 +1,1 @@
+ALTER TABLE "element" ADD COLUMN parameter json;

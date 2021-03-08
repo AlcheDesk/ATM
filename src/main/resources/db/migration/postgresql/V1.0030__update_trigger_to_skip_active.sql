@@ -1,0 +1,1 @@
+DROP FUNCTION "insert_updated_at_created_at_active_column" ( ) CASCADE;

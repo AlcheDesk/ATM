@@ -1,0 +1,11 @@
+ALTER TABLE "account" ADD COLUMN uuid uuid;
+UPDATE "account" SET uuid = uuid_generate_v4() WHERE uuid IS NULL;
+ALTER TABLE "account" ALTER COLUMN uuid SET NOT NULL;
+ALTER TABLE "account" ALTER COLUMN uuid SET DEFAULT uuid_generate_v4();
+ALTER TABLE "account" ADD COLUMN locked BOOLEAN;
+UPDATE "account" SET locked = false WHERE locked IS NULL;
+ALTER TABLE "account" ALTER COLUMN locked SET NOT NULL;
+ALTER TABLE "account" ALTER COLUMN locked SET DEFAULT false;
+ALTER TABLE "account" ADD COLUMN expiration_at TIMESTAMP WITH TIME zone;
+ALTER TABLE "account" ALTER COLUMN created_at SET DEFAULT now();
+ALTER TABLE "account" ALTER COLUMN updated_at SET DEFAULT now();

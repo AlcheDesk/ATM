@@ -1,0 +1,1 @@
+DELETE FROM instruction WHERE instruction_type_id IN (SELECT id FROM instruction_type WHERE name LIKE '%API') AND element_id IS NULL;

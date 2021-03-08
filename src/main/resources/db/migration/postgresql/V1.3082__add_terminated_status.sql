@@ -1,0 +1,1 @@
+INSERT INTO status (id, name, is_predefined, is_active ) VALUES (9, 'TERMINATED', true, true);

@@ -1,0 +1,1 @@
+UPDATE "property" SET value = 'JSON' WHERE key = 'meowlomo.ems.task.type';

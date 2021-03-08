@@ -1,0 +1,14 @@
+DROP FUNCTION "finish_run_set_result" ( bigint );
+DROP FUNCTION "generate_created_at_column" ( );
+DROP FUNCTION "generate_updated_at_created_at_column" ( );
+ALTER FUNCTION "iaiol_change_others" ( ) RENAME TO instruction_action_instruction_option_link_change_others;
+DROP FUNCTION "keep_copy_reference" ( );
+DROP FUNCTION "keep_created_at_timestamp" ( );
+DROP FUNCTION "keep_driver_type" ( );
+DROP FUNCTION "keep_instruction_option_log" ( );
+DROP FUNCTION "keep_instruction_type" ( );
+DROP FUNCTION "keep_is_finished_start_at_end_at" ( );
+DROP FUNCTION "keep_log" ( );
+DROP FUNCTION "keep_timestampes" ( );
+DROP FUNCTION "keep_timestampes_and_uuid" ( );
+DROP FUNCTION "keep_uuid" ( );

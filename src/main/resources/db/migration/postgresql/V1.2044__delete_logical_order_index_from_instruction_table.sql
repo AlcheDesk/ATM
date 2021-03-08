@@ -1,0 +1,1 @@
+ALTER TABLE "instruction" DROP COLUMN "logical_order_index";

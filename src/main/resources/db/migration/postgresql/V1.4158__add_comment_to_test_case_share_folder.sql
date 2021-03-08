@@ -1,0 +1,1 @@
+ALTER TABLE "test_case_share_folder" ADD COLUMN comment text;

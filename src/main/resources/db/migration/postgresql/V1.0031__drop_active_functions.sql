@@ -1,0 +1,1 @@
+DROP FUNCTION "insert_active_column" ( ) CASCADE;

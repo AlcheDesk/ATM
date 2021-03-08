@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.RunSetJobLinkMapper">
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.RunSetJobLink">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="run_set_id" jdbcType="BIGINT" property="runSetId" />
+        <result column="job_uuid" jdbcType="OTHER" property="jobUuid" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="run_set_uuid" jdbcType="OTHER" property="runSetUuid" typeHandler="com.meowlomo.atm.typehandler.UUIDTypeHandler" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.jobUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.runSetUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.jobUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.runSetUuidCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler} and #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, run_set_id, job_uuid, created_at, updated_at, run_set_uuid
+    </sql>
+    <select id="selectByExample" parameterType="com.meowlomo.atm.core.model.RunSetJobLinkExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <if test="example.distinct">
+            distinct
+        </if>
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from run_set_job_link
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run_set_job_link
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from run_set_job_link
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.meowlomo.atm.core.model.RunSetJobLinkExample">
+        delete from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.meowlomo.atm.core.model.RunSetJobLink" useGeneratedKeys="true">
+        insert into run_set_job_link (run_set_id, job_uuid,
+        run_set_uuid
+        )
+        values (#{runSetId,jdbcType=BIGINT},
+        #{jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        #{runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+        )
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="record.id" parameterType="map" useGeneratedKeys="true">
+        insert into run_set_job_link
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    ${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.runSetId != null">
+                        run_set_id,
+                    </if>
+                    <if test="record.jobUuid != null">
+                        job_uuid,
+                    </if>
+                    <if test="record.runSetUuid != null">
+                        run_set_uuid,
+                    </if>
+                </trim>
+                <trim prefix="(" suffix=")" suffixOverrides="," />
+            </otherwise>
+        </choose>
+        values
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.runSetId != null">
+                        #{record.runSetId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.jobUuid != null">
+                        #{record.jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.runSetUuid != null">
+                        #{record.runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+    </insert>
+    <select id="countByExample" parameterType="com.meowlomo.atm.core.model.RunSetJobLinkExample" resultType="java.lang.Long">
+        select count(*) from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update run_set_job_link
+        SET
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.id != null">
+                        id = #{record.id,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.runSetId != null">
+                        run_set_id = #{record.runSetId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.jobUuid != null">
+                        job_uuid = #{record.jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.runSetUuid != null">
+                        run_set_uuid = #{record.runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update run_set_job_link
+        set id = #{record.id,jdbcType=BIGINT},
+        run_set_id = #{record.runSetId,jdbcType=BIGINT},
+        job_uuid = #{record.jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        run_set_uuid =
+        #{record.runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="map">
+        update run_set_job_link
+        SET
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.runSetId != null">
+                        run_set_id = #{record.runSetId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.jobUuid != null">
+                        job_uuid = #{record.jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                    <if test="record.runSetUuid != null">
+                        run_set_uuid = #{record.runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        where id = #{record.id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.meowlomo.atm.core.model.RunSetJobLink">
+        update run_set_job_link
+        set run_set_id = #{runSetId,jdbcType=BIGINT},
+        job_uuid = #{jobUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler},
+        run_set_uuid =
+        #{runSetUuid,jdbcType=OTHER,typeHandler=com.meowlomo.atm.typehandler.UUIDTypeHandler}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByExampleWithRowbounds" parameterType="com.meowlomo.atm.core.model.RunSetJobLinkExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectOneByExample" parameterType="com.meowlomo.atm.core.model.RunSetJobLinkExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+    <select id="selectOneByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from run_set_job_link
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+        limit 1
+    </select>
+</mapper>

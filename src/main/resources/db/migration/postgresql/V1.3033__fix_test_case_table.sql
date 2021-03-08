@@ -1,0 +1,1 @@
+ALTER TABLE test_case ADD CONSTRAINT test_case_fk_ref_run_set FOREIGN KEY (ref_run_set_id) REFERENCES run_set (id);

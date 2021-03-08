@@ -1,0 +1,2 @@
+INSERT INTO property(id, key, value, is_active, is_predefined) VALUES (17, 'meowlomo.atm.hostname', 'localhost', true, true) ON CONFLICT DO NOTHING;
+INSERT INTO property(id, key, value, is_active, is_predefined) VALUES (18, 'meowlomo.atm.protocol', 'http://', true, true) ON CONFLICT DO NOTHING;

@@ -1,0 +1,2 @@
+DROP TRIGGER "run_set_result_insert_create_at_update_at" ON "run_set_result";
+CREATE TRIGGER run_set_result_insert_create_at_update_at BEFORE INSERT ON "run_set_result" FOR EACH ROW EXECUTE PROCEDURE "insert_updated_at_created_at_column"();

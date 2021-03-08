@@ -1,0 +1,2 @@
+DROP TRIGGER IF EXISTS "update_instruction_created_at_updated_at" ON "instruction";
+CREATE TRIGGER update_instruction_created_at_updated_at BEFORE UPDATE ON instruction FOR EACH ROW EXECUTE PROCEDURE update_created_at_updated_at_column();

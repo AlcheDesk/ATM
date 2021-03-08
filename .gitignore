@@ -1,0 +1,14 @@
+/target/
+/bin
+/.gradle
+/build
+/mybatis_generator/com
+/.settings
+/.project
+/.springBeans
+/application.log
+/log
+/.classpath
+.idea
+/ATM_API.iml
+/atm-application.log

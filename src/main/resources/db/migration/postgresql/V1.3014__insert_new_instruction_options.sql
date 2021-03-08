@@ -1,0 +1,2 @@
+INSERT INTO instruction_option(id, name, is_predefined, is_value_required, comment) VALUES (11, 'DTA_COMPARE_RETURN_VALUE', true, true, '方法返回值与预期做对比');
+INSERT INTO element_type_instruction_option_link(id, element_type_id, instruction_option_id) VALUES (59, 12, 11);

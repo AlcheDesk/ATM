@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.InstructionOverwriteReferenceMapper">
+    <resultMap id="ElementResultMap" type="com.meowlomo.atm.core.model.Element">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="comment" jdbcType="VARCHAR" property="comment" />
+        <result column="locator_value" jdbcType="VARCHAR" property="locatorValue" />
+        <result column="html_position_x" jdbcType="VARCHAR" property="htmlPositionX" />
+        <result column="html_position_y" jdbcType="VARCHAR" property="htmlPositionY" />
+        <result column="is_deleted" jdbcType="BIT" property="deleted" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="element_type_id" jdbcType="OTHER" property="type" typeHandler="com.meowlomo.atm.typehandler.ElementTypeTypeHandler" />
+        <result column="element_locator_type_id" jdbcType="OTHER" property="locatorType" typeHandler="com.meowlomo.atm.typehandler.ElementLocatorTypeTypeHandler" />
+        <result column="color_id" jdbcType="OTHER" property="color" typeHandler="com.meowlomo.atm.typehandler.ColorTypeHandler" />
+        <result column="parameter" jdbcType="OTHER" property="parameter" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="is_driver" jdbcType="BIT" property="isDriver" />
+        <result column="project_id" jdbcType="BIGINT" property="projectId" />
+        <result column="section_id" jdbcType="BIGINT" property="sectionId" />
+        <result column="copy_from_id" jdbcType="BIGINT" property="copyFromId" />
+        <result column="application_id" jdbcType="BIGINT" property="applicationId" />
+    </resultMap>
+    <resultMap id="InstructionResultMap" type="com.meowlomo.atm.core.model.Instruction">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="comment" jdbcType="VARCHAR" property="comment" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="input" jdbcType="VARCHAR" property="input" />
+        <result column="element_id" jdbcType="BIGINT" property="elementId" />
+        <result column="is_deleted" jdbcType="BIT" property="deleted" />
+        <result column="project_id" jdbcType="BIGINT" property="projectId" />
+        <result column="application_id" jdbcType="BIGINT" property="applicationId" />
+        <result column="section_id" jdbcType="BIGINT" property="sectionId" />
+        <result column="order_index" jdbcType="BIGINT" property="orderIndex" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="data" jdbcType="OTHER" property="data" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="color_id" jdbcType="OTHER" property="color" typeHandler="com.meowlomo.atm.typehandler.ColorTypeHandler" />
+        <result column="instruction_type_id" jdbcType="OTHER" property="type" typeHandler="com.meowlomo.atm.typehandler.InstructionTypeTypeHandler" />
+        <result column="step_description" jdbcType="VARCHAR" property="stepDescription" />
+        <result column="expected_description" jdbcType="VARCHAR" property="expectedDescription" />
+        <result column="test_case_id" jdbcType="BIGINT" property="testCaseId" />
+        <result column="ref_test_case_id" jdbcType="BIGINT" property="refTestCaseId" />
+        <result column="instruction_action_id" jdbcType="OTHER" property="action" typeHandler="com.meowlomo.atm.typehandler.InstructionActionTypeHandler" />
+        <result column="is_driver" jdbcType="BIT" property="isDriver" />
+        <result column="parameter" jdbcType="OTHER" property="parameter" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="copy_from_id" jdbcType="BIGINT" property="copyFromId" />
+        <result column="expected_value" jdbcType="VARCHAR" property="expectedValue" />
+        <result column="resource_md5" jdbcType="CHAR" property="resourceMd5" />
+        <result column="element_type_id" jdbcType="OTHER" property="elementType" typeHandler="com.meowlomo.atm.typehandler.ElementTypeTypeHandler" />
+        <result column="driver_type_id" jdbcType="OTHER" property="driverType" typeHandler="com.meowlomo.atm.typehandler.DriverTypeTypeHandler" />
+        <result column="ref_test_case_overwrite_id" jdbcType="BIGINT" property="refTestCaseOverwriteId" />
+        <result column="test_case_share_folder_id" jdbcType="BIGINT" property="testCaseShareFolderId" />
+        <result column="driver_alias" jdbcType="VARCHAR" property="driverAlias" />
+        <result column="target" jdbcType="VARCHAR" property="target" />
+        <result column="ref_test_case_overwrite_name" jdbcType="VARCHAR" property="refTestCaseOverwriteName" />
+    </resultMap>
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.InstructionOverwrite">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="test_case_overwrite_id" jdbcType="BIGINT" property="testCaseOverwriteId" />
+        <result column="test_case_id" jdbcType="BIGINT" property="testCaseId" />
+        <result column="instruction_id" jdbcType="BIGINT" property="instructionId" />
+        <result column="element_id" jdbcType="BIGINT" property="elementId" />
+        <result column="overwrite_fields" jdbcType="VARCHAR" property="overwriteFields" />
+        <result column="data" jdbcType="OTHER" property="data" typeHandler="com.meowlomo.atm.typehandler.JsonNodeTypeHandler" />
+        <result column="instruction_type_id" jdbcType="OTHER" property="type" typeHandler="com.meowlomo.atm.typehandler.InstructionTypeTypeHandler" />
+        <result column="ref_test_case_overwrite_id" jdbcType="BIGINT" property="refTestCaseOverwriteId" />
+        <result column="copy_from_id" jdbcType="BIGINT" property="copyFromId" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <association property="instruction" column="instruction_id" javaType="com.meowlomo.atm.core.model.Instruction" select="getInstructionForInstructionOverwrite" />
+        <association property="element" column="element_id" javaType="com.meowlomo.atm.core.model.Element" select="getElementForInstructionOverwrite" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.dataCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and
+                                    #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler} and
+                                    #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.dataCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler} and
+                                    #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.JsonNodeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                        <foreach collection="criteria.typeCriteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler} and
+                                    #{criterion.secondValue,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem,typeHandler=com.meowlomo.atm.typehandler.InstructionTypeTypeHandler}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, test_case_overwrite_id, test_case_id, instruction_id, element_id, overwrite_fields,
+        data, instruction_type_id, ref_test_case_overwrite_id, copy_from_id, log
+    </sql>
+    <select id="getInstructionForInstructionOverwrite" resultMap="InstructionResultMap"> select * from instruction where is_deleted =
+        false and id=#{instructionId}
+    </select>
+    <select id="getElementForInstructionOverwrite" resultMap="ElementResultMap"> select * from element where is_deleted = false and
+        id=#{elementId}
+    </select>
+    <select id="selectByExample" parameterType="com.meowlomo.atm.core.model.InstructionOverwriteExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <if test="example.distinct">distinct
+        </if>
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>id, test_case_overwrite_id, test_case_id, instruction_id,
+                element_id, is_deleted,
+                overwrite_fields, data, instruction_type_id, ref_test_case_overwrite_id,
+                copy_from_id, log
+            </otherwise>
+        </choose>
+        from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">order by ${example.orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from instruction_overwrite where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>id, test_case_overwrite_id, test_case_id, instruction_id,
+                element_id, is_deleted,
+                overwrite_fields, data, instruction_type_id, ref_test_case_overwrite_id,
+                copy_from_id, log
+            </otherwise>
+        </choose>
+        from instruction_overwrite where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="countByExample" parameterType="com.meowlomo.atm.core.model.InstructionOverwriteExample" resultType="java.lang.Long">
+        select count(*) from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <select id="selectByExampleWithRowbounds" parameterType="com.meowlomo.atm.core.model.InstructionOverwriteExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectOneByExample" parameterType="com.meowlomo.atm.core.model.InstructionOverwriteExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+    <select id="selectOneByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length > 0">
+                <foreach collection="selective" item="column" separator=",">${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>id, test_case_overwrite_id, test_case_id, instruction_id,
+                element_id, is_deleted,
+                overwrite_fields, data, instruction_type_id, ref_test_case_overwrite_id,
+                copy_from_id, log
+            </otherwise>
+        </choose>
+        from instruction_overwrite
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">order by ${example.orderByClause}
+        </if>
+        limit 1
+    </select>
+</mapper>

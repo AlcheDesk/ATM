@@ -1,0 +1,4 @@
+ALTER SEQUENCE prod_instruction_id_seq RENAME TO instruction_id_seq;
+ALTER SEQUENCE instruction_result_id_seq RENAME TO prod_instruction_result_id_seq;
+ALTER SEQUENCE execution_log_id_seq RENAME TO prod_execution_log_id_seq;
+ALTER SEQUENCE task_type_id_seq RENAME TO test_case_task_type_id_seq;

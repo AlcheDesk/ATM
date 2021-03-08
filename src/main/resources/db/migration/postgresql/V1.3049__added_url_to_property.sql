@@ -1,0 +1,2 @@
+INSERT INTO property(id, key, value, is_active, is_predefined) VALUES (19, 'meowlomo.atm.runSetResult.url', '/#/RunResult/RunListResult/', true, true) ON CONFLICT DO NOTHING;
+INSERT INTO property(id, key, value, is_active, is_predefined) VALUES (20, 'meowlomo.atm.run.url', '/RunCaseResult', true, true) ON CONFLICT DO NOTHING;

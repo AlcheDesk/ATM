@@ -1,0 +1,1 @@
+ALTER TABLE "instruction" RENAME CONSTRAINT "ins_ck_application_id_and_section_id_and_element_id" TO instruction_ck_application_id_and_section_id_and_element_id;

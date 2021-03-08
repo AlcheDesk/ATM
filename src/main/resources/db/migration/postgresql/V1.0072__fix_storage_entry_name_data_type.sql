@@ -1,0 +1,1 @@
+ALTER TABLE "storage_entry" ALTER COLUMN "name" TYPE text;

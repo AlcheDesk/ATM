@@ -1,0 +1,1 @@
+UPDATE instruction_type set name = 'REFERENCE' where name = 'REFRENCE';

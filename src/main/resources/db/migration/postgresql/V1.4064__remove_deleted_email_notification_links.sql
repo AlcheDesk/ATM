@@ -1,0 +1,1 @@
+delete from "notification_email_notification_target_link" where email_notification_target_id in (select id from "email_notification_target" where is_deleted is true);

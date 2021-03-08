@@ -1,0 +1,1 @@
+UPDATE instruction SET is_driver = true WHERE instruction_type_id IN (SELECT id FROM instruction_type WHERE name = 'SQL' OR name = 'JavaScript' OR name = 'WebBrowser');

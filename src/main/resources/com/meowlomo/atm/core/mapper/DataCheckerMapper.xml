@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.DataCheckerMapper">
+    <select id="checkApplicationNameBeforeInsert" resultType="java.lang.Long"> select count(app.name) from application app where
+        app.is_deleted = true and app.id in ( select id from application
+        where is_deleted = false and project_id =
+        #{projectId,jdbcType=BIGINT} ) and app.name =
+        #{applicationName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkDriverPropertyNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from driver_property pro
+        where pro.is_active=true and pro.name =
+        #{driverPropertyName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkDriverNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from driver pro where
+        pro.is_active=true and pro.name = #{driverName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkInstructionActionNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from instruction_action pro where
+        pro.is_active=true and pro.name =
+        #{instructionActionName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkElementLocatorTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from element_locator_type
+        pro where pro.is_active=true and pro.name =
+        #{elementLocatorTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkElementNameBeforeInsert" resultType="java.lang.Long"> select count(ele.name) from element ele where
+        ele.is_deleted = false and ele.id in ( select id from element where
+        is_deleted = false and section_id =
+        #{sectionId,jdbcType=BIGINT} ) and ele.name = #{elementName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkAPIElementNameBeforeInsert" resultType="java.lang.Long"> select count(ele.name) from element ele where
+        ele.is_deleted = false and ele.id in ( select id from element where
+        is_deleted = false and project_id =
+        #{projectId,jdbcType=BIGINT} ) and ele.element_type_id = 13 and ele.name =
+        #{elementName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkElementTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from element_type pro where
+        pro.is_active=true and pro.name = #{elementTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkExecutionLogNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from execution_log pro where
+        pro.is_active=true and pro.name = #{executionLogName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkFileNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from file pro where
+        pro.is_active=true and pro.name = #{fileName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkFileTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from file_type pro where
+        pro.is_active=true and pro.name = #{fileTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkGroupNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from group pro where
+        pro.is_active=true and pro.name = #{groupName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkInstructionOptionNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from instruction_option
+        pro where pro.is_active=true and pro.name =
+        #{instructionOptionName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkInstructionNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from instruction pro where
+        pro.is_deleted=false and pro.name =
+        #{instructionName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkInstructionResultNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from instruction_result
+        pro where pro.is_active=true and pro.name =
+        #{instructionResultName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkInstructionTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from instruction_type pro
+        where pro.is_active=true and pro.name =
+        #{instructionTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkProjectNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from project pro where
+        pro.is_deleted=false and pro.name = #{projectName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkProjectTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from project_type pro where
+        pro.is_active=true and pro.name = #{projectTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkPropertyNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from property pro where
+        pro.is_active=true and pro.name = #{propertyName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkRunNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from run pro where pro.is_active=true
+        and pro.name = #{runName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkRunSetrNameBeforeInsert" resultType="java.lang.Long"> select count(rs.id) from run_set rs where
+        rs.is_deleted=false and rs.name = #{runSetrName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkSectionNameBeforeInsert" resultType="java.lang.Long"> select count(sec.id) from section sec where
+        sec.is_deleted=false and sec.application_id =
+        #{applicationId,jdbcType=BIGINT} and sec.name =
+        #{sectionName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkStepLogNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from step_log pro where
+        pro.is_active=true and pro.name = #{stepLogName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkStepLogTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from step_log_type pro where
+        pro.is_active=true and pro.name = #{stepLogTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkStorageNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from storage pro where
+        pro.is_active=true and pro.name = #{storageName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkSystemRequirementNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from system_requirement
+        pro where pro.is_active=true and pro.name =
+        #{systemRequirementName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseFolderNameBeforeInsert" resultType="java.lang.Long"> select count(tcf.id) from test_case_folder tcf
+        where tcf.is_deleted=false and tcf.name =
+        #{testCaseFolderName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseFolderTypeNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from test_case_folder_type
+        pro where pro.is_active=true and pro.name =
+        #{testCaseFolderTypeName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseOptionNameBeforeInsert" resultType="java.lang.Long"> select count(pro.id) from test_case_option pro
+        where pro.is_active=true and pro.name =
+        #{testCaseOptionName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseNameForProjectBeforeInsert" resultType="java.lang.Long"> select count(tc.name) from test_case tc
+        where tc.is_deleted = true and tc.id in ( select id from test_case where
+        is_deleted = false and project_id =
+        #{projectId,jdbcType=BIGINT} ) and tc.name = #{tesCaseName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseNameForTestCaseFolderBeforeInsert" resultType="java.lang.Long"> select count(tc.name) from test_case
+        tc where tc.is_deleted = true and tc.id in ( select link.test_case_id
+        from test_case_folder_test_case_link link
+        where
+        link.test_case_folder_id = #{testCaseFolderId,jdbcType=BIGINT} ) and
+        tc.name =
+        #{tesCaseName,jdbcType=VARCHAR}
+    </select>
+    <select id="checkTestCaseNameForRunSetBeforeInsert" resultType="java.lang.Long"> select count(tc.name) from test_case tc where
+        tc.is_deleted = true and tc.id in ( select link.test_case_id from
+        run_set_test_case_link link where
+        link.run_set_id =
+        #{runSetId,jdbcType=BIGINT} ) and tc.name =
+        #{tesCaseName,jdbcType=VARCHAR}
+    </select>
+</mapper>

@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX section_unique_index_name_application_id_is_deleted ON section (name, application_id) WHERE is_deleted IS FALSE;

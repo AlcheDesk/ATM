@@ -1,0 +1,1 @@
+UPDATE public.instruction SET color_id=6 WHERE color_id=1;

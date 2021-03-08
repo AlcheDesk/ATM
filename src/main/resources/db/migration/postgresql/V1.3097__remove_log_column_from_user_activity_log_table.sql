@@ -1,0 +1,1 @@
+ALTER TABLE "user_activity_log" DROP COLUMN "log";

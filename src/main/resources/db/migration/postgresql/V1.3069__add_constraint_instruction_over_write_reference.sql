@@ -1,0 +1,2 @@
+DELETE FROM instruction_overwrite WHERE instruction_type_id = (SELECT id FROM instruction_type WHERE name = 'Reference') AND ref_test_case_overwrite_id IS NULL;
+ALTER TABLE "instruction_overwrite" ADD CONSTRAINT instruction_overwrite_check_type_ref_case_overwrite CHECK ((instruction_type_id = 6 AND ref_test_case_overwrite_id IS NOT NULL) OR (instruction_type_id <> 6 AND ref_test_case_overwrite_id IS NULL));

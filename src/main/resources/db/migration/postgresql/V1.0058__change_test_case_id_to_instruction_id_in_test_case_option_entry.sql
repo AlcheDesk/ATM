@@ -1,0 +1,1 @@
+ALTER TABLE "test_case_option_entry" RENAME COLUMN "test_case_id" TO instruction_id;

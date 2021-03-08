@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX driver_unique_index_type_is_default_id ON driver (driver_type_id, is_default) WHERE id < 1000;

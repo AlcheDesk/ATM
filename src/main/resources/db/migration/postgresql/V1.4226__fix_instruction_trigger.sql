@@ -1,0 +1,2 @@
+DELETE FROM driver_type_instruction_type_link WHERE id = 11 AND driver_type_id = 9 AND instruction_type_id = 10;
+UPDATE driver_type_instruction_type_link SET instruction_type_id = 18 WHERE id = 10 AND driver_type_id = 9 AND instruction_type_id = 8;

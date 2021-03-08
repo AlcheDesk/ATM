@@ -1,0 +1,491 @@
+# ===================================================================
+# Meowlomo ATM Configuration
+# ===================================================================
+
+# ===================================================================
+# MEOWLOMO PROPERTIES
+# ===================================================================
+meowlomo.atm.swaggerr.enable: true
+meowlomo.security.jwt.enable: false
+meowlomo.security.permitlist: /api/auth/**,/
+meowlomo.security.jwt.key: 
+meowlomo.security.authentication.header.name: Authorization
+meowlomo.security.jwt.header.prefix: 'Bearer '
+meowlomo.security.jwt.expiration-in-minutes: 120
+meowlomo.security.cookie.name: meowlomo_token
+meowlomo.secuirty.authentication-enabled: false
+meowlomo.testing.security.username: admin
+meowlomo.testing.security.user-uuid: 0d8cccf4-c942-4794-9d42-ae487f865477
+meowlomo.scheduler.pool-size: 15
+meowlomo.config.retrofit.baseUrl: http://localhost:8090
+meowlomo.config.ems.baseUrl: http://10.0.100.117:8090/
+meowlomo.atm.file.hostname: smb.test.meowlomo.com
+meowlomo.atm.file.type: cifs
+meowlomo.atm.file.username: 
+meowlomo.atm.file.password: 
+meowlomo.atm.file.url: smb.test.meowlomo.com
+meowlomo.atm.file.domain: smb
+meowlomo.atm.file.sharename: vmc
+meowlomo.atm.execute.timeout-in-minutes: 180
+
+meowlomo.security.authentication.administration.uuid: 00000000-0000-0000-0000-000000000000
+meowlomo.security.authentication.administration.account-uuid: 00000000-0000-0000-0000-000000000000
+meowlomo.security.authentication.administration.username: meowlomo
+
+# ===================================================================
+# COMMON SPRING BOOT PROPERTIES
+# ===================================================================
+
+# LOGGING
+# logging.config= # Location of the logging configuration file. For instance, `classpath:logback.xml` for Logback.
+# logging.exception-conversion-word=%wEx # Conversion word used when logging exceptions.
+# logging.file= # Log file name (for instance, `myapp.log`). Names can be an exact location or relative to the current directory.
+# logging.file.max-history=0 # Maximum of archive log files to keep. Only supported with the default logback setup.
+# logging.file.max-size=10MB # Maximum log file size. Only supported with the default logback setup.
+# logging.group.*= # Log groups to quickly change multiple loggers at the same time. For instance, `logging.level.db=org.hibernate,org.springframework.jdbc`.
+# logging.level.*= # Log levels severity mapping. For instance, `logging.level.org.springframework=DEBUG`.
+# logging.path= # Location of the log file. For instance, `/var/log`.
+# logging.pattern.console= # Appender pattern for output to the console. Supported only with the default Logback setup.
+# logging.pattern.dateformat=yyyy-MM-dd HH:mm:ss.SSS # Appender pattern for log date format. Supported only with the default Logback setup.
+# logging.pattern.file= # Appender pattern for output to a file. Supported only with the default Logback setup.
+# logging.pattern.level=%5p # Appender pattern for log level. Supported only with the default Logback setup.
+# logging.register-shutdown-hook=false # Register a shutdown hook for the logging system when it is initialized.
+
+# ENDPOINTS GENERAL CONFIGURATION
+# management.endpoints.enabled-by-default= # Whether to enable or disable all endpoints by default.
+
+management:
+  endpoints:
+#    enabled-by-default: true
+    web:
+      exposure:
+        include:
+        - health
+        - info
+  health:
+    mail:
+      enabled: true
+  info:
+    git:
+      enabled: true
+
+spring:
+
+# SECURITY (SecurityProperties)
+# spring.security.filter.order=-100 # Security filter chain order.
+# spring.security.filter.dispatcher-types=async,error,request # Security filter chain dispatcher types.
+# spring.security.user.name=user # Default user name.
+# spring.security.user.password= # Password for the default user name.
+# spring.security.user.roles= # Granted roles for the default user name.
+  security:
+    user:
+      name: meowlomo
+      password: mladmin666
+      roles:
+      - ACTUATOR_ADMIN
+# PROFILES
+# spring.profiles.active= # Comma-separated list of active profiles. Can be overridden by a command line switch.
+# spring.profiles.include= # Unconditionally activate the specified comma-separated list of profiles (or list of profiles if using YAML).
+  profiles:
+    active:
+    - dev
+
+# IDENTITY (ContextIdApplicationContextInitializer)
+  application:
+    name: meowlomo ATM
+
+# AOP
+# spring.aop.auto=true # Add @EnableAspectJAutoProxy.
+# spring.aop.proxy-target-class=true # Whether subclass-based (CGLIB) proxies are to be created (true), as opposed to standard Java interface-based proxies (false).
+  aop:
+    auto: true
+    proxy-target-class: true
+
+# BANNER
+# spring.banner.charset=UTF-8 # Banner file encoding.
+# spring.banner.location=classpath:banner.txt # Banner text resource location.
+# spring.banner.image.location=classpath:banner.gif # Banner image file location (jpg or png can also be used).
+# spring.banner.image.width=76 # Width of the banner image in chars.
+# spring.banner.image.height= # Height of the banner image in chars (default based on image height).
+# spring.banner.image.margin=2 # Left hand image margin in chars.
+# spring.banner.image.invert=false # Whether images should be inverted for dark terminal themes.
+  banner:
+    charset: UTF-8
+
+# SPRING CACHE (CacheProperties)
+# spring.cache.cache-names= # Comma-separated list of cache names to create if supported by the underlying cache manager.
+# spring.cache.caffeine.spec= # The spec to use to create caches. See CaffeineSpec for more details on the spec format.
+# spring.cache.couchbase.expiration= # Entry expiration. By default the entries never expire. Note that this value is ultimately converted to seconds.
+# spring.cache.ehcache.config= # The location of the configuration file to use to initialize EhCache.
+# spring.cache.infinispan.config= # The location of the configuration file to use to initialize Infinispan.
+# spring.cache.jcache.config= # The location of the configuration file to use to initialize the cache manager.
+# spring.cache.jcache.provider= # Fully qualified name of the CachingProvider implementation to use to retrieve the JSR-107 compliant cache manager. Needed only if more than one JSR-107 implementation is available on the classpath.
+# spring.cache.redis.cache-null-values=true # Allow caching null values.
+# spring.cache.redis.key-prefix= # Key prefix.
+# spring.cache.redis.time-to-live= # Entry expiration. By default the entries never expire.
+# spring.cache.redis.use-key-prefix=true # Whether to use the key prefix when writing to Redis.
+# spring.cache.type= # Cache type. By default, auto-detected according to the environment.
+  cache:
+    redis:
+      cache-null-values: false
+      time-to-live: 60000
+      use-key-prefix: true
+    type: redis
+   
+# DATASOURCE (DataSourceAutoConfiguration & DataSourceProperties)
+# spring.datasource.continue-on-error=false # Whether to stop if an error occurs while initializing the database.
+# spring.datasource.data= # Data (DML) script resource references.
+# spring.datasource.data-username= # Username of the database to execute DML scripts (if different).
+# spring.datasource.data-password= # Password of the database to execute DML scripts (if different).
+# spring.datasource.dbcp2.*= # Commons DBCP2 specific settings
+# spring.datasource.driver-class-name= # Fully qualified name of the JDBC driver. Auto-detected based on the URL by default.
+# spring.datasource.generate-unique-name=false # Whether to generate a random datasource name.
+# spring.datasource.hikari.*= # Hikari specific settings
+# spring.datasource.initialization-mode=embedded # Initialize the datasource with available DDL and DML scripts.
+# spring.datasource.jmx-enabled=false # Whether to enable JMX support (if provided by the underlying pool).
+# spring.datasource.jndi-name= # JNDI location of the datasource. Class, url, username & password are ignored when set.
+# spring.datasource.name= # Name of the datasource. Default to "testdb" when using an embedded database.
+# spring.datasource.password= # Login password of the database.
+# spring.datasource.platform=all # Platform to use in the DDL or DML scripts (such as schema-${platform}.sql or data-${platform}.sql).
+# spring.datasource.schema= # Schema (DDL) script resource references.
+# spring.datasource.schema-username= # Username of the database to execute DDL scripts (if different).
+# spring.datasource.schema-password= # Password of the database to execute DDL scripts (if different).
+# spring.datasource.separator=; # Statement separator in SQL initialization scripts.
+# spring.datasource.sql-script-encoding= # SQL scripts encoding.
+# spring.datasource.tomcat.*= # Tomcat datasource specific settings
+# spring.datasource.type= # Fully qualified name of the connection pool implementation to use. By default, it is auto-detected from the classpath.
+# spring.datasource.url= # JDBC URL of the database.
+# spring.datasource.username= # Login username of the database.
+# spring.datasource.xa.data-source-class-name= # XA datasource fully qualified name.
+# spring.datasource.xa.properties= # Properties to pass to the XA data source.
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:postgresql://localhost:5432/ATM-T
+    driver-class-name: org.postgresql.Driver
+    username: 
+    password: 
+    hikari:
+      max-lifetime: 1800000
+      idle-timeout: 600000
+      connection-timeout: 30000
+      maximum-pool-size: 50
+      minimum-idle: 10
+      pool-name: Database Connection Pool
+    platform: postgrsql
+
+# JPA (JpaBaseConfiguration, HibernateJpaAutoConfiguration)
+# spring.data.jpa.repositories.bootstrap-mode=default # Bootstrap mode for JPA repositories.
+# spring.data.jpa.repositories.enabled=true # Whether to enable JPA repositories.
+# spring.jpa.database= # Target database to operate on, auto-detected by default. Can be alternatively set using the "databasePlatform" property.
+# spring.jpa.database-platform= # Name of the target database to operate on, auto-detected by default. Can be alternatively set using the "Database" enum.
+# spring.jpa.generate-ddl=false # Whether to initialize the schema on startup.
+# spring.jpa.hibernate.ddl-auto= # DDL mode. This is actually a shortcut for the "hibernate.hbm2ddl.auto" property. Defaults to "create-drop" when using an embedded database and no schema manager was detected. Otherwise, defaults to "none".
+# spring.jpa.hibernate.naming.implicit-strategy= # Fully qualified name of the implicit naming strategy.
+# spring.jpa.hibernate.naming.physical-strategy= # Fully qualified name of the physical naming strategy.
+# spring.jpa.hibernate.use-new-id-generator-mappings= # Whether to use Hibernate's newer IdentifierGenerator for AUTO, TABLE and SEQUENCE.
+# spring.jpa.mapping-resources= # Mapping resources (equivalent to "mapping-file" entries in persistence.xml).
+# spring.jpa.open-in-view=true # Register OpenEntityManagerInViewInterceptor. Binds a JPA EntityManager to the thread for the entire processing of the request.
+# spring.jpa.properties.*= # Additional native properties to set on the JPA provider.
+# spring.jpa.show-sql=false # Whether to enable logging of SQL statements.
+#  jpa:
+#    properties:
+#      hibernate:
+#        temp:
+#          use_jdbc_metadata_defaults: false
+
+# FLYWAY (FlywayProperties)
+# spring.flyway.baseline-description= #
+# spring.flyway.baseline-on-migrate= #
+# spring.flyway.baseline-version=1 # Version to start migration
+# spring.flyway.check-location=true # Whether to check that migration scripts location exists.
+# spring.flyway.clean-disabled= #
+# spring.flyway.clean-on-validation-error= #
+# spring.flyway.dry-run-output= #
+# spring.flyway.enabled=true # Whether to enable flyway.
+# spring.flyway.encoding= #
+# spring.flyway.error-handlers= #
+# spring.flyway.group= #
+# spring.flyway.ignore-future-migrations= #
+# spring.flyway.ignore-missing-migrations= #
+# spring.flyway.init-sqls= # SQL statements to execute to initialize a connection immediately after obtaining it.
+# spring.flyway.installed-by= #
+# spring.flyway.locations=classpath:db/migration # The locations of migrations scripts.
+# spring.flyway.mixed= #
+# spring.flyway.out-of-order= #
+# spring.flyway.password= # JDBC password to use if you want Flyway to create its own DataSource.
+# spring.flyway.placeholder-prefix= #
+# spring.flyway.placeholder-replacement= #
+# spring.flyway.placeholder-suffix= #
+# spring.flyway.placeholders.*= #
+# spring.flyway.repeatable-sql-migration-prefix= #
+# spring.flyway.schemas= # schemas to update
+# spring.flyway.skip-default-callbacks= #
+# spring.flyway.skip-default-resolvers= #
+# spring.flyway.sql-migration-prefix=V #
+# spring.flyway.sql-migration-separator= #
+# spring.flyway.sql-migration-suffix=.sql #
+# spring.flyway.sql-migration-suffixes= #
+# spring.flyway.table= #
+# spring.flyway.target= #
+# spring.flyway.undo-sql-migration-prefix= #
+# spring.flyway.url= # JDBC url of the database to migrate. If not set, the primary configured data source is used.
+# spring.flyway.user= # Login user of the database to migrate.
+# spring.flyway.validate-on-migrate= #
+  flyway:
+    baseline-version: 0
+    baseline-on-migrate: true
+    encoding: UTF-8
+
+# FREEMARKER (FreeMarkerProperties)
+# spring.freemarker.allow-request-override=false # Whether HttpServletRequest attributes are allowed to override (hide) controller generated model attributes of the same name.
+# spring.freemarker.allow-session-override=false # Whether HttpSession attributes are allowed to override (hide) controller generated model attributes of the same name.
+# spring.freemarker.cache=false # Whether to enable template caching.
+# spring.freemarker.charset=UTF-8 # Template encoding.
+# spring.freemarker.check-template-location=true # Whether to check that the templates location exists.
+# spring.freemarker.content-type=text/html # Content-Type value.
+# spring.freemarker.enabled=true # Whether to enable MVC view resolution for this technology.
+# spring.freemarker.expose-request-attributes=false # Whether all request attributes should be added to the model prior to merging with the template.
+# spring.freemarker.expose-session-attributes=false # Whether all HttpSession attributes should be added to the model prior to merging with the template.
+# spring.freemarker.expose-spring-macro-helpers=true # Whether to expose a RequestContext for use by Spring's macro library, under the name "springMacroRequestContext".
+# spring.freemarker.prefer-file-system-access=true # Whether to prefer file system access for template loading. File system access enables hot detection of template changes.
+# spring.freemarker.prefix= # Prefix that gets prepended to view names when building a URL.
+# spring.freemarker.request-context-attribute= # Name of the RequestContext attribute for all views.
+# spring.freemarker.settings.*= # Well-known FreeMarker keys which are passed to FreeMarker's Configuration.
+# spring.freemarker.suffix=.ftl # Suffix that gets appended to view names when building a URL.
+# spring.freemarker.template-loader-path=classpath:/templates/ # Comma-separated list of template paths.
+# spring.freemarker.view-names= # White list of view names that can be resolved.
+
+# HTTP encoding (HttpEncodingProperties)
+# spring.http.encoding.charset=UTF-8 # Charset of HTTP requests and responses. Added to the "Content-Type" header if not set explicitly.
+# spring.http.encoding.enabled=true # Whether to enable http encoding support.
+# spring.http.encoding.force= # Whether to force the encoding to the configured charset on HTTP requests and responses.
+# spring.http.encoding.force-request= # Whether to force the encoding to the configured charset on HTTP requests. Defaults to true when "force" has not been specified.
+# spring.http.encoding.force-response= # Whether to force the encoding to the configured charset on HTTP responses.
+# spring.http.encoding.mapping= # Locale in which to encode mapping.
+#  http:
+
+
+# JACKSON (JacksonProperties)
+# spring.jackson.date-format= # Date format string or a fully-qualified date format class name. For instance, `yyyy-MM-dd HH:mm:ss`.
+# spring.jackson.default-property-inclusion= # Controls the inclusion of properties during serialization. Configured with one of the values in Jackson's JsonInclude.Include enumeration.
+# spring.jackson.deserialization.*= # Jackson on/off features that affect the way Java objects are deserialized.
+# spring.jackson.generator.*= # Jackson on/off features for generators.
+# spring.jackson.joda-date-time-format= # Joda date time format string. If not configured, "date-format" is used as a fallback if it is configured with a format string.
+# spring.jackson.locale= # Locale used for formatting.
+# spring.jackson.mapper.*= # Jackson general purpose on/off features.
+# spring.jackson.parser.*= # Jackson on/off features for parsers.
+# spring.jackson.property-naming-strategy= # One of the constants on Jackson's PropertyNamingStrategy. Can also be a fully-qualified class name of a PropertyNamingStrategy subclass.
+# spring.jackson.serialization.*= # Jackson on/off features that affect the way Java objects are serialized.
+# spring.jackson.time-zone= #  Time zone used when formatting dates. For instance, "America/Los_Angeles" or "GMT+10".
+  jackson:
+    date-format: yyyy-MM-dd'T'HH:mm:ssXXX
+    serialization:
+      write-dates-as-timestamps: false
+      fail-on-empty-beans: false
+#      write-empty-json-arrays: false
+    default-property-inclusion: non-null
+    deserialization:
+      fail-on-unknown-properties: false
+    time-zone: Asia/Shanghai
+
+# JERSEY (JerseyProperties)
+# spring.jersey.application-path= # Path that serves as the base URI for the application. If specified, overrides the value of "@ApplicationPath".
+# spring.jersey.filter.order=0 # Jersey filter chain order.
+# spring.jersey.init.*= # Init parameters to pass to Jersey through the servlet or filter.
+# spring.jersey.servlet.load-on-startup=-1 # Load on startup priority of the Jersey servlet.
+# spring.jersey.type=servlet # Jersey integration type.
+  jersey:
+    application-path: /api
+
+# FILE ENCODING (FileEncodingApplicationListener)
+# spring.mandatory-file-encoding= # Expected character encoding the application must use.
+  mandatory-file-encoding: UTF-8
+
+# Email (MailProperties)
+# spring.mail.default-encoding=UTF-8 # Default MimeMessage encoding.
+# spring.mail.host= # SMTP server host. For instance, `smtp.example.com`.
+# spring.mail.jndi-name= # Session JNDI name. When set, takes precedence over other Session settings.
+# spring.mail.password= # Login password of the SMTP server.
+# spring.mail.port= # SMTP server port.
+# spring.mail.properties.*= # Additional JavaMail Session properties.
+# spring.mail.protocol=smtp # Protocol used by the SMTP server.
+# spring.mail.test-connection=false # Whether to test that the mail server is available on startup.
+# spring.mail.username= # Login user of the SMTP server.
+  mail:
+    host: 
+    default-encoding: UTF-8
+    jndi-name: atm-mail
+    username: 
+    password: 
+    port: 587
+    protocol: smtp
+    test-connection: true
+    properties:
+      mail.smtp.starttls.enable: true
+      mail.smtp.socketFactory.port: 587
+      mail.smtp.auth: true
+      mail.smtp.ssl.trust: "mail.meowlomo.email"
+
+# MONGODB (MongoProperties)
+# spring.data.mongodb.authentication-database= # Authentication database name.
+# spring.data.mongodb.database= # Database name.
+# spring.data.mongodb.field-naming-strategy= # Fully qualified name of the FieldNamingStrategy to use.
+# spring.data.mongodb.grid-fs-database= # GridFS database name.
+# spring.data.mongodb.host= # Mongo server host. Cannot be set with URI.
+# spring.data.mongodb.password= # Login password of the mongo server. Cannot be set with URI.
+# spring.data.mongodb.port= # Mongo server port. Cannot be set with URI.
+# spring.data.mongodb.repositories.type=auto # Type of Mongo repositories to enable.
+# spring.data.mongodb.uri=mongodb://localhost/test # Mongo database URI. Cannot be set with host, port and credentials.
+# spring.data.mongodb.username= # Login user of the mongo server. Cannot be set with URI.
+
+# OUTPUT
+# spring.output.ansi.enabled=detect # Configures the ANSI output.
+  output:
+    ansi:
+      enabled: detect
+
+# QUARTZ SCHEDULER (QuartzProperties)
+# spring.quartz.jdbc.comment-prefix=-- # Prefix for single-line comments in SQL initialization scripts.
+# spring.quartz.jdbc.initialize-schema=embedded # Database schema initialization mode.
+# spring.quartz.jdbc.schema=classpath:org/quartz/impl/jdbcjobstore/tables_@@platform@@.sql # Path to the SQL file to use to initialize the database schema.
+# spring.quartz.job-store-type=memory # Quartz job store type.
+# spring.quartz.properties.*= # Additional Quartz Scheduler properties.
+  quartz:
+    jdbc:
+      initialize-schema: always
+      comment-prefix: '#'
+    job-store-type: jdbc
+    properties:
+      org:
+        quartz:
+          scheduler:
+            instanceName: clusteredScheduler
+            instanceId: AUTO
+          jobStore:
+            class: org.quartz.impl.jdbcjobstore.JobStoreTX
+            driverDelegateClass: org.quartz.impl.jdbcjobstore.PostgreSQLDelegate
+            tablePrefix: qrtz_
+            isClustered: true
+            clusterCheckinInterval: 10000
+            useProperties: false
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            threadCount: 20
+            threadPriority: 5
+            threadNamePrefix: qrtz_
+            threadsInheritContextClassLoaderOfInitializingThread: true
+
+# REDIS (RedisProperties)
+# spring.redis.cluster.max-redirects= # Maximum number of redirects to follow when executing commands across the cluster.
+# spring.redis.cluster.nodes= # Comma-separated list of "host:port" pairs to bootstrap from.
+# spring.redis.database=0 # Database index used by the connection factory.
+# spring.redis.url= # Connection URL. Overrides host, port, and password. User is ignored. Example: redis://user:password@example.com:6379
+# spring.redis.host=localhost # Redis server host.
+# spring.redis.jedis.pool.max-active=8 # Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.
+# spring.redis.jedis.pool.max-idle=8 # Maximum number of "idle" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.
+# spring.redis.jedis.pool.max-wait=-1ms # Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.
+# spring.redis.jedis.pool.min-idle=0 # Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.
+# spring.redis.lettuce.pool.max-active=8 # Maximum number of connections that can be allocated by the pool at a given time. Use a negative value for no limit.
+# spring.redis.lettuce.pool.max-idle=8 # Maximum number of "idle" connections in the pool. Use a negative value to indicate an unlimited number of idle connections.
+# spring.redis.lettuce.pool.max-wait=-1ms # Maximum amount of time a connection allocation should block before throwing an exception when the pool is exhausted. Use a negative value to block indefinitely.
+# spring.redis.lettuce.pool.min-idle=0 # Target for the minimum number of idle connections to maintain in the pool. This setting only has an effect if it is positive.
+# spring.redis.lettuce.shutdown-timeout=100ms # Shutdown timeout.
+# spring.redis.password= # Login password of the redis server.
+# spring.redis.port=6379 # Redis server port.
+# spring.redis.sentinel.master= # Name of the Redis server.
+# spring.redis.sentinel.nodes= # Comma-separated list of "host:port" pairs.
+# spring.redis.ssl=false # Whether to enable SSL support.
+# spring.redis.timeout= # Connection timeout.
+  redis:
+    database: 0
+    host: 
+    port: 6379
+    password:
+    timeout: 5000
+    lettuce:
+      pool:        
+        max-active: 10
+        max-wait: -1
+        max-idle: 10
+        min-idle: 2
+      shutdown-timeout: 100
+
+# SECURITY (SecurityProperties)
+# spring.security.filter.order=-100 # Security filter chain order.
+# spring.security.filter.dispatcher-types=async,error,request # Security filter chain dispatcher types.
+# spring.security.user.name=user # Default user name.
+# spring.security.user.password= # Password for the default user name.
+# spring.security.user.roles= # Granted roles for the default user name.
+
+# THYMELEAF (ThymeleafAutoConfiguration)
+# spring.thymeleaf.cache=true # Whether to enable template caching.
+# spring.thymeleaf.check-template=true # Whether to check that the template exists before rendering it.
+# spring.thymeleaf.check-template-location=true # Whether to check that the templates location exists.
+# spring.thymeleaf.enabled=true # Whether to enable Thymeleaf view resolution for Web frameworks.
+# spring.thymeleaf.enable-spring-el-compiler=false # Enable the SpringEL compiler in SpringEL expressions.
+# spring.thymeleaf.encoding=UTF-8 # Template files encoding.
+# spring.thymeleaf.excluded-view-names= # Comma-separated list of view names (patterns allowed) that should be excluded from resolution.
+# spring.thymeleaf.mode=HTML # Template mode to be applied to templates. See also Thymeleaf's TemplateMode enum.
+# spring.thymeleaf.prefix=classpath:/templates/ # Prefix that gets prepended to view names when building a URL.
+# spring.thymeleaf.reactive.chunked-mode-view-names= # Comma-separated list of view names (patterns allowed) that should be the only ones executed in CHUNKED mode when a max chunk size is set.
+# spring.thymeleaf.reactive.full-mode-view-names= # Comma-separated list of view names (patterns allowed) that should be executed in FULL mode even if a max chunk size is set.
+# spring.thymeleaf.reactive.max-chunk-size=0B # Maximum size of data buffers used for writing to the response.
+# spring.thymeleaf.reactive.media-types= # Media types supported by the view technology.
+# spring.thymeleaf.servlet.content-type=text/html # Content-Type value written to HTTP responses.
+# spring.thymeleaf.suffix=.html # Suffix that gets appended to view names when building a URL.
+# spring.thymeleaf.template-resolver-order= # Order of the template resolver in the chain.
+# spring.thymeleaf.view-names= # Comma-separated list of view names (patterns allowed) that can be resolved.
+  thymeleaf:
+    enabled: false
+    encoding: UTF-8
+    cache: true
+  #    check-template-location: true
+  #    prefix: classpath:/templates/
+  #    suffix: .html
+  #    mode: HTML5
+  
+  
+  mvc:
+    servlet:
+      path: /
+     
+# EMBEDDED SERVER CONFIGURATION (ServerProperties)
+server:
+  servlet:
+    encoding:
+      enabled: true
+      charset: UTF-8
+      force: true
+  port: 8080
+
+# ===================================================================
+# MYBATIS PROPERTIES
+# ===================================================================
+mybatis:
+  type-aliases-package: com.meowlomo.atm.core.mapper
+  type-handlers-package: com.meowlomo.atm.typehandler
+  mapper-locations: classpath:**/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    cache-enabled: true
+
+# ===================================================================
+# MYBATIS PLUS PROPERTIES
+# ===================================================================  
+mybatis-plus:
+  mapper-locations:
+  - classpath:**/mapper/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: true
+
+# ===================================================================
+# MYBATIS PAGE HELPER PROPERTIES
+# ===================================================================  
+pagehelper:
+  helper-dialect: postgresql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql

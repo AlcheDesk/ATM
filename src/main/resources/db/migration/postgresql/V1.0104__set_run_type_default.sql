@@ -1,0 +1,1 @@
+ALTER TABLE "run" ALTER COLUMN run_type_id SET DEFAULT 1;

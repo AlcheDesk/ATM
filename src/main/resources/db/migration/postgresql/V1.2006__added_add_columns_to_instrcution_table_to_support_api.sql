@@ -1,0 +1,9 @@
+ALTER TABLE "instruction" ADD COLUMN protocol text;
+ALTER TABLE "instruction" ADD COLUMN host text;
+ALTER TABLE "instruction" ADD COLUMN port INTEGER;
+ALTER TABLE "instruction" ADD COLUMN base_url text;
+ALTER TABLE "instruction" ADD COLUMN request_body text;
+ALTER TABLE "instruction" ADD COLUMN http_response_code INTEGER;
+ALTER TABLE "instruction" ADD COLUMN json_schema json;
+ALTER TABLE "instruction" ADD COLUMN request_headers json[];
+ALTER TABLE "instruction" ADD COLUMN query_parameters json[];

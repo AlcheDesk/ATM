@@ -1,0 +1,11 @@
+DROP TABLE "user" CASCADE;
+ALTER TABLE "storage" ADD COLUMN url text;
+delete from "properties" where key is null or value is null;
+ALTER TABLE "properties" ALTER COLUMN KEY SET NOT NULL;
+ALTER TABLE "properties" ALTER COLUMN value SET NOT NULL;
+ALTER TABLE "properties" ADD COLUMN preloaded BOOLEAN;
+update "properties" set preloaded = false where preloaded is null;
+ALTER TABLE "properties" ALTER COLUMN preloaded SET NOT NULL;
+ALTER TABLE "properties" ALTER COLUMN preloaded SET DEFAULT false;
+ALTER TABLE "properties" ADD CONSTRAINT properties_uk_key UNIQUE ("key");
+insert into "properties" (key,value,preloaded) values ('emsBaseUrl','http://localhost:8090',true);

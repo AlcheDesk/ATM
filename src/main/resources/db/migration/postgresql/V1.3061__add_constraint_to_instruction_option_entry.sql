@@ -1,0 +1,1 @@
+ALTER TABLE instruction_option_entry ADD CONSTRAINT instruction_option_entry_ix_instruction_id UNIQUE (instruction_id);

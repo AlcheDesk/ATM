@@ -1,0 +1,1 @@
+UPDATE instruction_overwrite SET is_deleted=true WHERE test_case_overwrite_id in (SELECT id FROM test_case_overwrite where is_deleted=true);

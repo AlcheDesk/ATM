@@ -1,0 +1,1 @@
+UPDATE property SET "key" = 'meowlomo.atm.external.ems.base-url' WHERE "key" = 'emsBaseUrl';

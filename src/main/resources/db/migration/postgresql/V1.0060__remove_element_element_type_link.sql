@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS "element_element_type_link" CASCADE;

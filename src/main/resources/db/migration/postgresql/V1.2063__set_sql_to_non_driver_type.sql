@@ -1,0 +1,1 @@
+UPDATE element_type SET is_driver = false WHERE id = 9 AND name = 'SQL' AND is_driver IS TRUE;

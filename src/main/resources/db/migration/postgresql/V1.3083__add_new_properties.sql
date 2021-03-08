@@ -1,0 +1,1 @@
+INSERT INTO public.property (key, value, is_active, is_predefined) VALUES ('meowlomo.atm.external.ems.termination-url', '/api/utils/tasks/termination/', true, true);

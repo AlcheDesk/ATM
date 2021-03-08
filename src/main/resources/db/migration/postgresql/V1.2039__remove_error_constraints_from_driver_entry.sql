@@ -1,0 +1,1 @@
+ALTER TABLE "driver_entry" DROP CONSTRAINT "driver_entry_ix_name_vendor_version";

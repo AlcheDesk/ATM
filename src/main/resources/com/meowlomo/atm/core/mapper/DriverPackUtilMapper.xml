@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.util.DriverPackUtilMapper">
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.DriverPack">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="created_at" jdbcType="TIMESTAMP" property="createdAt" />
+        <result column="updated_at" jdbcType="TIMESTAMP" property="updatedAt" />
+        <result column="execution_count" jdbcType="BIGINT" property="executionCount" />
+        <result column="comment" jdbcType="VARCHAR" property="comment" />
+        <result column="is_deleted" jdbcType="BIT" property="deleted" />
+        <result column="log" jdbcType="VARCHAR" property="log" />
+        <result column="is_default" jdbcType="BIT" property="isDefault" />
+        <result column="copy_from_id" jdbcType="BIGINT" property="copyFromId" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">and ${criterion.condition} #{criterion.value}
+                                    and
+                                    #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">and ${criterion.condition} #{criterion.value}
+                                    and
+                                    #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">#{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List"> id, name, created_at, updated_at, execution_count,
+        comment, is_deleted, log, is_default
+    </sql>
+    <select id="getDriverPack" resultMap="BaseResultMap">
+        select * from driver_pack where is_deleted is false and id in
+        (select driver_pack_id from driver_pack_driver_type_map where driver_types @>
+        #{driverTypes,jdbcType=ARRAY,typeHandler=com.meowlomo.atm.typehandler.DriverTypesTypeHandler}
+        )
+    </select>
+    <select id="getAllDriverPack" resultMap="BaseResultMap">
+        select * from driver_pack where id in
+        (select driver_pack_id from driver_pack_driver_type_map where driver_types @>
+        #{driverTypes,jdbcType=ARRAY,typeHandler=com.meowlomo.atm.typehandler.DriverTypesTypeHandler})
+    </select>
+</mapper>

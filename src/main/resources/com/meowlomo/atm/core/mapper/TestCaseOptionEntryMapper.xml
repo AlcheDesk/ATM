@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.meowlomo.atm.core.mapper.TestCaseOptionEntryMapper">
+    <resultMap id="BaseResultMap" type="com.meowlomo.atm.core.model.TestCaseOptionEntry">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="value" jdbcType="VARCHAR" property="value" />
+        <result column="test_case_id" jdbcType="BIGINT" property="testCaseId" />
+        <result column="is_value_required" jdbcType="BIT" property="valueRequired" />
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" prefixOverrides="and" suffix=")">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
+            </foreach>
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
+        id, name, value, test_case_id, is_value_required
+    </sql>
+    <select id="selectByExample" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntryExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <if test="example.distinct">
+            distinct
+        </if>
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test_case_option_entry
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <select id="selectByPrimaryKeySelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from test_case_option_entry
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from test_case_option_entry
+        where id = #{id,jdbcType=BIGINT}
+    </delete>
+    <delete id="deleteByExample" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntryExample">
+        delete from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntry" useGeneratedKeys="true">
+        insert into test_case_option_entry (name, value, test_case_id,
+        is_value_required)
+        values
+        (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{testCaseId,jdbcType=BIGINT},
+        #{valueRequired,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="record.id" parameterType="map" useGeneratedKeys="true">
+        insert into test_case_option_entry
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    ${column.escapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.name != null">
+                        name,
+                    </if>
+                    <if test="record.value != null">
+                        value,
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id,
+                    </if>
+                    <if test="record.valueRequired != null">
+                        is_value_required,
+                    </if>
+                </trim>
+                <trim prefix="(" suffix=")" suffixOverrides="," />
+            </otherwise>
+        </choose>
+        values
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach close=")" collection="selective" item="column" open="(" separator=",">
+                    #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    <if test="record.name != null">
+                        #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.value != null">
+                        #{record.value,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.valueRequired != null">
+                        #{record.valueRequired,jdbcType=BIT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+    </insert>
+    <select id="countByExample" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntryExample" resultType="java.lang.Long">
+        select count(*) from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update test_case_option_entry
+        SET
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.id != null">
+                        id = #{record.id,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.name != null">
+                        name = #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.value != null">
+                        value = #{record.value,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.valueRequired != null">
+                        is_value_required = #{record.valueRequired,jdbcType=BIT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update test_case_option_entry
+        set id = #{record.id,jdbcType=BIGINT},
+        name = #{record.name,jdbcType=VARCHAR},
+        value = #{record.value,jdbcType=VARCHAR},
+        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+        is_value_required =
+        #{record.valueRequired,jdbcType=BIT}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="map">
+        update test_case_option_entry
+        SET
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.escapedColumnName} = #{record.${column.javaProperty},jdbcType=${column.jdbcType}}
+                </foreach>
+            </when>
+            <otherwise>
+                <trim suffixOverrides=",">
+                    <if test="record.name != null">
+                        name = #{record.name,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.value != null">
+                        value = #{record.value,jdbcType=VARCHAR},
+                    </if>
+                    <if test="record.testCaseId != null">
+                        test_case_id = #{record.testCaseId,jdbcType=BIGINT},
+                    </if>
+                    <if test="record.valueRequired != null">
+                        is_value_required = #{record.valueRequired,jdbcType=BIT},
+                    </if>
+                </trim>
+            </otherwise>
+        </choose>
+        where id = #{record.id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntry">
+        update test_case_option_entry
+        set name = #{name,jdbcType=VARCHAR},
+        value = #{value,jdbcType=VARCHAR},
+        test_case_id = #{testCaseId,jdbcType=BIGINT},
+        is_value_required =
+        #{valueRequired,jdbcType=BIT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <select id="selectByExampleWithRowbounds" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntryExample" resultMap="BaseResultMap">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        <include refid="Base_Column_List" />
+        from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectOneByExample" parameterType="com.meowlomo.atm.core.model.TestCaseOptionEntryExample" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause" />
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+        limit 1
+    </select>
+    <select id="selectOneByExampleSelective" parameterType="map" resultMap="BaseResultMap">
+        select
+        <choose>
+            <when test="selective != null and selective.length &gt; 0">
+                <foreach collection="selective" item="column" separator=",">
+                    ${column.aliasedEscapedColumnName}
+                </foreach>
+            </when>
+            <otherwise>
+                <include refid="Base_Column_List" />
+            </otherwise>
+        </choose>
+        from test_case_option_entry
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause" />
+        </if>
+        <if test="example.orderByClause != null">
+            order by ${example.orderByClause}
+        </if>
+        limit 1
+    </select>
+</mapper>

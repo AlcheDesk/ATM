@@ -1,0 +1,6 @@
+ALTER TRIGGER "element_updated_created_at_updated_at" ON "element" RENAME TO
+element_update_created_at_updated_at;
+ALTER TRIGGER "prod_run_set_result_job_link_created_at_updated_at" ON
+"run_set_result_job_link" RENAME TO run_set_result_job_link_insert_created_at_updated_at;
+ALTER TRIGGER "prod_test_case_option_created_at_updated_at" ON "public"."test_case_option" RENAME
+TO test_case_option_insert_created_at_updated_at;

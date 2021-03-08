@@ -1,0 +1,1 @@
+INSERT INTO element_locator_type (id, name, is_active, is_predefined) VALUES (9, 'URL', true, true);

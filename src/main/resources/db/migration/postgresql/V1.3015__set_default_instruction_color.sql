@@ -1,0 +1,1 @@
+ALTER TABLE "instruction" ALTER COLUMN color_id SET DEFAULT 6;

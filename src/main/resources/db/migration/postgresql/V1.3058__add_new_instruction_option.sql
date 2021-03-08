@@ -1,0 +1,1 @@
+INSERT INTO instruction_option(id, name, is_predefined, is_value_required, comment, is_active) VALUES (12, 'DTA_SAVE_JSONPATH', true, true, '保存接口返回数据中jsonpath的结果值', true);

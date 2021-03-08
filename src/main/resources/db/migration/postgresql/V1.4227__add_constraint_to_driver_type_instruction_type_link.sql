@@ -1,0 +1,1 @@
+ALTER TABLE "driver_type_instruction_type_link" ADD CONSTRAINT driver_type_instruction_type_link_ix_instruction_type UNIQUE ("instruction_type_id");

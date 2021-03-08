@@ -1,0 +1,1 @@
+ALTER TABLE "instruction_overwrite" DROP COLUMN "is_deleted";

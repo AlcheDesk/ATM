@@ -1,0 +1,11 @@
+ALTER FUNCTION "insert_created_at_column" ( ) RENAME TO generate_created_at_column;
+ALTER FUNCTION "insert_updated_at_created_at_column" ( ) RENAME TO generate_updated_at_created_at_column;
+DROP FUNCTION "dev_step_log_update_dev_instruction_result_status" ( );
+DROP FUNCTION "dev_instruction_result_update_run_status" ( );
+DROP FUNCTION "execution_logic_dev_step_log_update_dev_instruction_result" ( );
+DROP FUNCTION "execution_logic_instruction_result_update_run" ( );
+DROP FUNCTION "execution_logic_prod_step_log_update_prod_instruction_result" ( );
+DROP FUNCTION "execution_logic_run_update_run_set_result" ( );
+DROP FUNCTION "finished_update_status" ( );
+DROP FUNCTION "prod_instruction_result_update_run_status" ( );
+DROP FUNCTION "prod_step_log_update_prod_instruction_result_status" ( );

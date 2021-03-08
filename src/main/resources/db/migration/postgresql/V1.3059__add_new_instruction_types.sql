@@ -1,0 +1,2 @@
+INSERT INTO instruction_type(id, name, is_active, is_predefined) VALUES (11, 'StringDataProcessor', true, true);
+INSERT INTO instruction_type(id, name, is_active, is_predefined) VALUES (12, 'MathExpressionProcessor', true, true);

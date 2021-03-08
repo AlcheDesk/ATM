@@ -1,0 +1,2 @@
+ALTER TABLE "test_case_option_entry" DROP CONSTRAINT IF EXISTS "test_case_option_entry_fk_test_case";
+ALTER TABLE "test_case_option_entry" ADD CONSTRAINT test_case_option_entry_fk_instruction FOREIGN KEY ("instruction_id") REFERENCES "instruction" ("id");
